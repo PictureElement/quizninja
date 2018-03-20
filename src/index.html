@@ -1,29 +1,50 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Game of Thrones Trivia Quiz: How well do you know Season 6?</title>
+    <title>Quiz App</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="All men must die, but not before you prove how much you really love A Song of Ice and Fire.">
+    <meta name="description" content="A basic quiz app written in vanilla JavaScript.">
     <meta name="author" content="PictureElement (Marios Sofokleous)">
     <!-- Styles -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <!-- Fonts -->
     <!-- Scripts -->
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script defer src="js/main.js"></script>
   </head>
   <body>     
     <div class="container">
-      <header class="py-5 text-center" id="header">
-        <h1>Game of Thrones Trivia Quiz: How well do you know Season 6?</h1>
+      <header class="py-5" id="header">
+        <h1>How well do you know GoT Season 6?</h1>
       </header>
       <div id="question">
+        <p class="lead">Who died holding a door for Bran Stark to escape?</p>
       </div>
       <div id="image">
+        <img src="https://proto.io/en/jobs/candidate-questions/imgs/1.jpg">
       </div>
       <div id="form">
+        <form>
+          <div>
+            <input type="radio" id="answer1" name="answer">
+            <label for="answer1">Hodor</label>
+
+            <input type="radio" id="answer2" name="answer">
+            <label for="answer2">The Hound</label>
+
+            <input type="radio" id="answer3" name="answer">
+            <label for="answer3">Cold Hands</label>
+
+            <input type="radio" id="answer4" name="answer">
+            <label for="answer4">Wun Wun</label>
+          </div>
+          <div>
+            <button type="submit">Submit</button>
+          </div>
+        </form>
       </div>
       <footer class="text-center p-4">
         <a href="https://pictureelement.github.io/portfolio-2/">
