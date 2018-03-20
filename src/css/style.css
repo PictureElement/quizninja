@@ -2,14 +2,12 @@ body {
   background: #eee;
 }
 
-.card {
-  
+.jumbotron {
+  margin: 0;
 }
 
 nav {
   box-shadow: 0 0 4px rgba(0,0,0,0.3);
-  background: #757F9A;  /* fallback for old browsers */
-  background: linear-gradient(to right, #D7DDE8, #757F9A);
 }
 
 img {
@@ -26,7 +24,6 @@ img {
 footer {
   padding: 1rem;
   text-align: center;
-  background: red;
 }
 
 /*

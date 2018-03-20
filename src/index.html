@@ -21,16 +21,28 @@
     <div class="container mx-auto">
 
       <header>
-        <nav class="navbar navbar-light bg-light">
+        <nav class="navbar navbar-dark bg-danger">
           <a class="navbar-brand" href="#">
             <img src="media/logo.svg" width="30" height="30" class="d-inline-block align-top" alt="">
             QuizNinja
           </a>
         </nav>
       </header>
+      <div class="jumbotron bg-warning rounded-0">
+        <h1 class="display-4">Welcome!</h1>
+        <p class="lead">
+          Test your knowledge on various topics in this traditional style trivia 
+          game. Challenge friends and family to fun questions. Find out if you 
+          got the skills to be a real quizninja!
+        </p>
+        <hr class="my-4">
+        <p class="lead">
+          <a class="btn btn-dark btn-lg" href="#" role="button">Play Now</a>
+        </p>
+      </div>
 
       <!-- Card 1
-      <div class="card bg-dark text-white">
+      <div class="card rounded-0 bg-dark text-white">
         <div class="card-header">
           <h1>Who died holding a door for Bran Stark to escape?</h1>
         </div>
@@ -68,11 +80,11 @@
       -->
 
       <!-- Card 2 -->
-      <div class="card rounded-0 bg-dark text-white">
-        <div class="card-header">
-          <h1>Which of these people died in the Great Sept at Cersei's hand?</h1>
-        </div>
+      <div class="card rounded-0 bg-primary text-white">
         <img class="card-img-top" src="http://proto.io/en/jobs/candidate-questions/imgs/4.jpg" alt="">
+        <div class="card-header lead bg-danger">
+          Which of these people died in the Great Sept at Cersei's hand?
+        </div>
         <div class="card-body">
           <div id="form">
             <!-- Multiple choice (multiple) -->
@@ -93,13 +105,13 @@
                 <input type="checkbox" name="options" id="option4" value="option4">
                 <span class="checkbox-checkmark"></span>
               </label>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-dark">Submit</button>
             </form>          
           </div>
         </div>
       </div>
 
-      <footer class="text-muted">
+      <footer class="text-muted bg-dark">
         <a href="https://pictureelement.github.io/portfolio-2/">
           <i class="fa fa-code" style="font-size:20px;color:#fff;" aria-hidden="true"></i> with <i class="fa fa-heart" style="font-size:16px;color:#fff;" aria-hidden="true"></i> by PictureElement
         </a>
