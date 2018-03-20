@@ -1,3 +1,17 @@
+body {
+  background: #eee;
+}
+
+.card {
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+}
+
+nav {
+  box-shadow: 0 0 4px rgba(0,0,0,0.3);
+  background: #757F9A;  /* fallback for old browsers */
+  background: linear-gradient(to right, #D7DDE8, #757F9A);
+}
+
 img {
   max-width: 100%;
   height: auto;
@@ -5,6 +19,7 @@ img {
 
 .container {
   max-width: 600px;
+  padding: 0;
 }
 
 /*

@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Quiz App</title>
+    <title>QuizNinja</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A basic quiz app written in vanilla JavaScript.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="A quiz written in vanilla JavaScript.">
     <meta name="author" content="PictureElement (Marios Sofokleous)">
     <!-- Styles -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -17,19 +17,24 @@
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script defer src="js/main.js"></script>
   </head>
-  <body>     
+  <body> 
     <div class="container mx-auto">
+      <header>
+        <nav class="navbar">
+          <span class="navbar-brand mb-0"><img src="media/logo.svg" width="50" class="d-inline-block align-top" alt=""></span>
+          <span>QuizNinja</span>
+        </nav>
+      </header>
 
-      <!-- Card 1 -->
+      <!-- Card 1
       <div class="card bg-dark text-white">
         <div class="card-header">
-          <h1>How well do you know GoT Season 6?</h1>
+          <h1>Who died holding a door for Bran Stark to escape?</h1>
         </div>
         <img class="card-img-top" src="https://proto.io/en/jobs/candidate-questions/imgs/1.jpg" alt="">
         <div class="card-body">
-          <h5 class="card-title">Who died holding a door for Bran Stark to escape?</h5>
           <div id="form">
-            <!-- Multiple choice (single) -->
+            <!-- Multiple choice (single)
             <form>
               <label class="ans-container">Hodor
                 <input type="radio" name="options" id="option1" value="option1">
@@ -57,15 +62,15 @@
           </a>
         </div>
       </div>
+      -->
 
       <!-- Card 2 -->
       <div class="card bg-dark text-white">
         <div class="card-header">
-          <h1>How well do you know GoT Season 6?</h1>
+          <h1>Which of these people died in the Great Sept at Cersei's hand?</h1>
         </div>
         <img class="card-img-top" src="http://proto.io/en/jobs/candidate-questions/imgs/4.jpg" alt="">
         <div class="card-body">
-          <h5 class="card-title">Which of these people died in the Great Sept at Cersei's hand?</h5>
           <div id="form">
             <!-- Multiple choice (multiple) -->
             <form>
@@ -99,28 +104,3 @@
     </div>
   </body>
 </html>
-
-
-
-
-
-            <!-- Multiple choice (multiple) -->
-            <form>
-              <label class="ans-container">
-                <input type="checkbox" name="options" id="option1" value="option1">
-                <span class="checkbox-checkmark"></span>
-              </label>
-              <label class="ans-container">
-                <input type="checkbox" name="options" id="option2" value="option2">
-                <span class="checkbox-checkmark"></span>
-              </label>
-              <label class="ans-container">
-                <input type="checkbox" name="options" id="option3" value="option3">
-                <span class="checkbox-checkmark"></span>
-              </label>
-              <label class="ans-container">
-                <input type="checkbox" name="options" id="option4" value="option4">
-                <span class="checkbox-checkmark"></span>
-              </label>
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
