@@ -15,6 +15,7 @@
     <!-- Fonts -->
     <!-- Scripts -->
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script defer src="js/main.js"></script>
   </head>
   <body> 
@@ -41,72 +42,60 @@
         </p>
       </div>
 
-      <!-- Card 1
-      <div class="card rounded-0 bg-dark text-white">
-        <div class="card-header">
-          <h1>Who died holding a door for Bran Stark to escape?</h1>
-        </div>
+      <!-- Card 1: Multiple choice (single) -->
+      <div class="card rounded-0">
         <img class="card-img-top" src="https://proto.io/en/jobs/candidate-questions/imgs/1.jpg" alt="">
+        <div class="card-header lead bg-danger">
+          Who died holding a door for Bran Stark to escape?
+        </div>
         <div class="card-body">
           <div id="form">
-            <!-- Multiple choice (single)
             <form>
-              <label class="ans-container">Hodor
-                <input type="radio" name="options" id="option1" value="option1">
-                <span class="radio-checkmark"></span>
-              </label>
-              <label class="ans-container">The Hound
-                <input type="radio" name="options" id="option2" value="option2">
-                <span class="radio-checkmark"></span>
-              </label>
-              <label class="ans-container">Cold Hands
-                <input type="radio" name="options" id="option3" value="option3">
-                <span class="radio-checkmark"></span>
-              </label>
-              <label class="ans-container">Wun Wun
-                <input type="radio" name="options" id="option4" value="option4">
-                <span class="radio-checkmark"></span>
-              </label>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <div class="btn-group-toggle mb-2" data-toggle="buttons">
+                <label class="btn btn-block btn-primary">
+                  <input type="radio" autocomplete="off" name="options" id="option1" value="1"> Hodor
+                </label>
+                <label class="btn btn-block btn-primary">
+                  <input type="radio" autocomplete="off" name="options" id="option2" value="2"> The Hound
+                </label>
+                <label class="btn btn-block btn-primary">
+                  <input type="radio" autocomplete="off" name="options" id="option3" value="3"> Cold Hands
+                </label>
+                <label class="btn btn-block btn-primary">
+                  <input type="radio" autocomplete="off" name="options" id="option4" value="4"> Wun Wun
+                </label>
+              </div>
+              <button type="submit" class="btn btn-dark">Submit</button>
             </form>
           </div>
         </div>
-        <div class="card-footer text-muted">
-          <a href="https://pictureelement.github.io/portfolio-2/">
-            <i class="fa fa-code" style="font-size:20px;color:#fff;" aria-hidden="true"></i> with <i class="fa fa-heart" style="font-size:16px;color:#fff;" aria-hidden="true"></i> by PictureElement
-          </a>
-        </div>
       </div>
-      -->
 
-      <!-- Card 2 -->
-      <div class="card rounded-0 bg-primary text-white">
+      <!-- Card 2: Multiple choice (multiple) -->
+      <div class="card rounded-0">
         <img class="card-img-top" src="http://proto.io/en/jobs/candidate-questions/imgs/4.jpg" alt="">
         <div class="card-header lead bg-danger">
           Which of these people died in the Great Sept at Cersei's hand?
         </div>
         <div class="card-body">
           <div id="form">
-            <!-- Multiple choice (multiple) -->
             <form>
-              <label class="ans-container">Tommen Baratheon
-                <input type="checkbox" name="options" id="option1" value="option1">
-                <span class="checkbox-checkmark"></span>
-              </label>
-              <label class="ans-container">Margery Tyrell
-                <input type="checkbox" name="options" id="option2" value="option2">
-                <span class="checkbox-checkmark"></span>
-              </label>
-              <label class="ans-container">Loras Tyrell
-                <input type="checkbox" name="options" id="option3" value="option3">
-                <span class="checkbox-checkmark"></span>
-              </label>
-              <label class="ans-container">Mace Tyrell
-                <input type="checkbox" name="options" id="option4" value="option4">
-                <span class="checkbox-checkmark"></span>
-              </label>
+              <div class="btn-group-toggle mb-2" data-toggle="buttons">
+                <label class="btn btn-block btn-primary">
+                  <input type="checkbox" autocomplete="off" name="options" id="option1" value="1"> Tommen Baratheon
+                </label>
+                <label class="btn btn-block btn-primary">
+                  <input type="checkbox" autocomplete="off" name="options" id="option2" value="2"> Margery Tyrell
+                </label>
+                <label class="btn btn-block btn-primary">
+                  <input type="checkbox" autocomplete="off" name="options" id="option3" value="3"> Loras Tyrell
+                </label>
+                <label class="btn btn-block btn-primary">
+                  <input type="checkbox" autocomplete="off" name="options" id="option4" value="4"> Mace Tyrell
+                </label>
+              </div>
               <button type="submit" class="btn btn-dark">Submit</button>
-            </form>          
+            </form>
           </div>
         </div>
       </div>
