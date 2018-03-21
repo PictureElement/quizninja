@@ -18,90 +18,48 @@
     <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script defer src="js/main.js"></script>
   </head>
-  <body> 
-    <div class="container mx-auto">
-
-      <!-- Card 1: Multiple choice (single) -->
-      <div class="card rounded-0">
-        <img class="card-img-top" src="https://proto.io/en/jobs/candidate-questions/imgs/1.jpg" alt="">
-        <div class="card-header lead bg-danger">
-          Who died holding a door for Bran Stark to escape?
+  <body>
+    <div class="container">
+      <div class="c">
+        <!-- Card header -->
+        <div class="c-header bg-dark text-white clearfix px-3 py-2">
+          <span class="float-left">TOPIC</span>
+          <span class="float-right">Timer</span>
         </div>
-        <div class="card-body">
-          <div id="form">
-            <form>
-              <div class="btn-group-toggle mb-2" data-toggle="buttons">
-                <label class="btn btn-block btn-primary">
-                  <input type="radio" autocomplete="off" name="options" id="option1" value="1"> Hodor
-                </label>
-                <label class="btn btn-block btn-primary">
-                  <input type="radio" autocomplete="off" name="options" id="option2" value="2"> The Hound
-                </label>
-                <label class="btn btn-block btn-primary">
-                  <input type="radio" autocomplete="off" name="options" id="option3" value="3"> Cold Hands
-                </label>
-                <label class="btn btn-block btn-primary">
-                  <input type="radio" autocomplete="off" name="options" id="option4" value="4"> Wun Wun
-                </label>
-              </div>
-              <button type="submit" class="btn btn-dark">Submit</button>
-            </form>
-          </div>
+        <!-- Card progress bar -->
+        <div class="progress rounded-0">
+          <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
         </div>
-      </div>
-
-      <!-- Card 2: Multiple choice (multiple) -->
-      <div class="card rounded-0">
-        <img class="card-img-top" src="http://proto.io/en/jobs/candidate-questions/imgs/4.jpg" alt="">
-        <div class="card-header lead bg-danger">
-          Which of these people died in the Great Sept at Cersei's hand?
+        <!-- Card image -->
+        <div class="c-image">
+          <img class="img-fluid" src="https://proto.io/en/jobs/candidate-questions/imgs/1.jpg" alt="placeholder">
         </div>
-        <div class="card-body">
-          <div id="form">
-            <form>
-              <div class="btn-group-toggle mb-2" data-toggle="buttons">
-                <label class="btn btn-block btn-primary">
-                  <input type="checkbox" autocomplete="off" name="options" id="option1" value="1"> Tommen Baratheon
-                </label>
-                <label class="btn btn-block btn-primary">
-                  <input type="checkbox" autocomplete="off" name="options" id="option2" value="2"> Margery Tyrell
-                </label>
-                <label class="btn btn-block btn-primary">
-                  <input type="checkbox" autocomplete="off" name="options" id="option3" value="3"> Loras Tyrell
-                </label>
-                <label class="btn btn-block btn-primary">
-                  <input type="checkbox" autocomplete="off" name="options" id="option4" value="4"> Mace Tyrell
-                </label>
-              </div>
-              <button type="submit" class="btn btn-dark">Submit</button>
-            </form>
-          </div>
+        <!-- Card body -->
+        <div class="c-body">
+          <p class="p-2 m-0 text-center">Who died holding a door for Bran Stark to escape?</p>
+          <form class="px-2">
+            <div class="btn-group-toggle" data-toggle="buttons">
+              <label class="mb-2 btn btn-block btn-primary">
+                <input type="radio" autocomplete="off" name="options" id="option1" value="1"> Hodor
+              </label>
+              <label class="mb-2 btn btn-block btn-primary">
+                <input type="radio" autocomplete="off" name="options" id="option2" value="2"> The Hound
+              </label>
+              <label class="mb-2 btn btn-block btn-primary">
+                <input type="radio" autocomplete="off" name="options" id="option3" value="3"> Cold Hands
+              </label>
+              <label class="mb-2 btn btn-block btn-primary">
+                <input type="radio" autocomplete="off" name="options" id="option4" value="4"> Wun Wun
+              </label>
+            </div>
+            <button type="submit" class="btn btn-lg btn-success">Submit</button>
+          </form>
+        </div>
+        <div class="c-footer bg-dark text-white clearfix mt-2 px-3 py-2">
+          <span class="float-left"><a href="index.html"><i class="fa fa-2x fa-home" aria-hidden="true"></i></a></span>
+          <span class="float-right">x of y</span>
         </div>
       </div>
-
-      <!-- Card 3: True-false -->
-      <div class="card rounded-0">
-        <img class="card-img-top" src="https://proto.io/en/jobs/candidate-questions/imgs/1.jpg" alt="">
-        <div class="card-header lead bg-danger">
-          The Queen of Thorns, Olenna Tyrell, is the only Tyrell left alive at the end of Season 6.
-        </div>
-        <div class="card-body">
-          <div id="form">
-            <form>
-              <div class="btn-group-toggle mb-2" data-toggle="buttons">
-                <label class="btn btn-block btn-primary">
-                  <input type="radio" autocomplete="off" name="options" id="option1" value="1"> True
-                </label>
-                <label class="btn btn-block btn-primary">
-                  <input type="radio" autocomplete="off" name="options" id="option2" value="2"> False
-                </label>
-              </div>
-              <button type="submit" class="btn btn-dark">Submit</button>
-            </form>
-          </div>
-        </div>
-      </div>
-
     </div>
   </body>
 </html>

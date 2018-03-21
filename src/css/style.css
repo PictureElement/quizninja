@@ -1,24 +1,39 @@
+/*
+ * BASE STRUCTURE
+ */ 
+
+html, body {
+  height: 100vh;
+}
+
 body {
-  background: #eee;
-}
-
-.jumbotron {
-  margin: 0;
-}
-
-nav {
-  box-shadow: 0 0 4px rgba(0,0,0,0.3);
-}
-
-img {
-  max-width: 100%;
-  height: auto;
+  background: #1cd8d2;  /* fallback for old browsers */
+  background: linear-gradient(to bottom, #93edc7, #1cd8d2);
 }
 
 .container {
-  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
-  max-width: 600px;
+  height: 100vh;
   padding: 0;
+  /* Flexbox centering */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*
+ * HOME PAGE
+ */
+
+.jumbotron {
+  padding: 0;
+  text-align: center;
+  max-width: 450px;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+  margin: 0;
+}
+
+.j-body-wrapper {
+  padding: 2rem 1rem;
 }
 
 footer {
@@ -27,88 +42,11 @@ footer {
 }
 
 /*
- * CUSTOM RADIO BUTTONS 
+ * PLAY AREA
  */
 
-.ans-container {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-/* Hide the browser's default radio button */
-input[type=radio], input[type=checkbox] {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.radio-checkmark {
-  position: absolute;
-  top: 4px;
-  left: 0;
-  height: 25px;
-  width: 25px;
-  background-color: #eee;
-  border-radius: 50%;
-}
-
-.checkbox-checkmark {
-  position: absolute;
-  top: 4px;
-  left: 0;
-  height: 25px;
-  width: 25px;
-  background-color: #eee;
-}
-
-/* On mouse-over, add a grey background color */
-.ans-container:hover input ~ .radio-checkmark,
-.ans-container:hover input ~ .checkbox-checkmark  {
-  background-color: #ccc;
-}
-
-/* When the radio button is checked, add a blue background */
-.ans-container input:checked ~ .radio-checkmark,
-.ans-container input:checked ~ .checkbox-checkmark {
-  background-color: #2196F3;
-}
-
-/* Create the indicator (hidden when not checked) */
-.radio-checkmark:after, .checkbox-checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-/* Show the indicator when checked */
-.ans-container input:checked ~ .radio-checkmark:after, 
-.ans-container input:checked ~ .checkbox-checkmark:after  {
-  display: block;
-}
-
-/* Style the indicator */
-.ans-container .radio-checkmark:after {
-  top: 9px;
-  left: 9px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: white;
-}
-
-/* Style the indicator */
-.ans-container .checkbox-checkmark:after {
-  font-size: 15px;
-  left:5px;
-  top:2px;
-  content: "\f00c";
-  font-family: FontAwesome;
+.c { 
+  max-width: 450px;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+  background: #fff;
 }
