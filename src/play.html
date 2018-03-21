@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>QuizNinja</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="A quiz written in vanilla JavaScript.">
+    <meta name="author" content="PictureElement (Marios Sofokleous)">
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Font icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Fonts -->
+    <!-- Scripts -->
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script defer src="js/main.js"></script>
+  </head>
+  <body> 
+    <div class="container mx-auto">
+
+      <!-- Card 1: Multiple choice (single) -->
+      <div class="card rounded-0">
+        <img class="card-img-top" src="https://proto.io/en/jobs/candidate-questions/imgs/1.jpg" alt="">
+        <div class="card-header lead bg-danger">
+          Who died holding a door for Bran Stark to escape?
+        </div>
+        <div class="card-body">
+          <div id="form">
+            <form>
+              <div class="btn-group-toggle mb-2" data-toggle="buttons">
+                <label class="btn btn-block btn-primary">
+                  <input type="radio" autocomplete="off" name="options" id="option1" value="1"> Hodor
+                </label>
+                <label class="btn btn-block btn-primary">
+                  <input type="radio" autocomplete="off" name="options" id="option2" value="2"> The Hound
+                </label>
+                <label class="btn btn-block btn-primary">
+                  <input type="radio" autocomplete="off" name="options" id="option3" value="3"> Cold Hands
+                </label>
+                <label class="btn btn-block btn-primary">
+                  <input type="radio" autocomplete="off" name="options" id="option4" value="4"> Wun Wun
+                </label>
+              </div>
+              <button type="submit" class="btn btn-dark">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Multiple choice (multiple) -->
+      <div class="card rounded-0">
+        <img class="card-img-top" src="http://proto.io/en/jobs/candidate-questions/imgs/4.jpg" alt="">
+        <div class="card-header lead bg-danger">
+          Which of these people died in the Great Sept at Cersei's hand?
+        </div>
+        <div class="card-body">
+          <div id="form">
+            <form>
+              <div class="btn-group-toggle mb-2" data-toggle="buttons">
+                <label class="btn btn-block btn-primary">
+                  <input type="checkbox" autocomplete="off" name="options" id="option1" value="1"> Tommen Baratheon
+                </label>
+                <label class="btn btn-block btn-primary">
+                  <input type="checkbox" autocomplete="off" name="options" id="option2" value="2"> Margery Tyrell
+                </label>
+                <label class="btn btn-block btn-primary">
+                  <input type="checkbox" autocomplete="off" name="options" id="option3" value="3"> Loras Tyrell
+                </label>
+                <label class="btn btn-block btn-primary">
+                  <input type="checkbox" autocomplete="off" name="options" id="option4" value="4"> Mace Tyrell
+                </label>
+              </div>
+              <button type="submit" class="btn btn-dark">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: True-false -->
+      <div class="card rounded-0">
+        <img class="card-img-top" src="https://proto.io/en/jobs/candidate-questions/imgs/1.jpg" alt="">
+        <div class="card-header lead bg-danger">
+          The Queen of Thorns, Olenna Tyrell, is the only Tyrell left alive at the end of Season 6.
+        </div>
+        <div class="card-body">
+          <div id="form">
+            <form>
+              <div class="btn-group-toggle mb-2" data-toggle="buttons">
+                <label class="btn btn-block btn-primary">
+                  <input type="radio" autocomplete="off" name="options" id="option1" value="1"> True
+                </label>
+                <label class="btn btn-block btn-primary">
+                  <input type="radio" autocomplete="off" name="options" id="option2" value="2"> False
+                </label>
+              </div>
+              <button type="submit" class="btn btn-dark">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
