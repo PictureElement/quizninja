@@ -4,49 +4,51 @@
 
 html, body {
   height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: #1cd8d2;  /* fallback for old browsers */
-  background: linear-gradient(to bottom, #93edc7, #1cd8d2);
+  background: #eee;
 }
 
 .container {
-  height: 100vh;
+  min-height: 100vh;
   padding: 0;
-  /* Flexbox centering */
+  max-width: 450px;
+  padding: 1rem;
+  background: #f2b632;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+  /* Horizontally and vertically center card within the container */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 /*
- * HOME PAGE
+ * HOME  
  */
 
 .jumbotron {
   padding: 0;
   text-align: center;
-  max-width: 450px;
-  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+  background: #f2b632;
   margin: 0;
-}
-
-.j-body-wrapper {
-  padding: 2rem 1rem;
+  max-width: 20rem;
 }
 
 footer {
-  padding: 1rem;
-  text-align: center;
+  padding-top: 5rem;
 }
+
 
 /*
  * PLAY AREA
  */
-
-.c { 
-  max-width: 450px;
-  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
-  background: #fff;
+.c-footer {
+  display: flex;
+  /* Vertical alignment: center; */
+  align-items: center;
+  /* Horizontal alignmentt */
+  justify-content: space-between;
 }
