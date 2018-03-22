@@ -23,7 +23,7 @@ function populate() {
     for (var i = 0; i < quiz.questions[questionIndex].possible_answers.length; i++) {
       formattedRadio = HTMLradio.replace("%data1%", i+1);
       formattedRadio = formattedRadio.replace("%data2%", quiz.questions[questionIndex].possible_answers[i].caption);
-      $("#card-answers").append(formattedRadio);
+      $("#card-answers").prepend(formattedRadio);
     }
   }
   else if (questionType === "mutiplechoice-multiple") { // For multiple choice (multiple) use checkbox buttons
@@ -32,12 +32,12 @@ function populate() {
     for (var i = 0; i < quiz.questions[questionIndex].possible_answers.length; i++) {
       formattedCheckbox = HTMLcheckbox.replace("%data1%", i+1);
       formattedCheckbox = formattedCheckbox.replace("%data2%", quiz.questions[questionIndex].possible_answers[i].caption);
-      $("#card-answers").append(formattedCheckbox);
+      $("#card-answers").prepend(formattedCheckbox);
     }
   }
   else { // For true-false use radio buttons as well
-    $("#card-answers").append(HTMLfalse);
-    $("#card-answers").append(HTMLtrue);
+    $("#card-answers").prepend(HTMLfalse);
+    $("#card-answers").prepend(HTMLtrue);
   }
 }
 
@@ -54,6 +54,7 @@ $.getJSON("https://proto.io/en/jobs/candidate-questions/quiz.json", function(res
   populate();
 });
 
+// Attach click event to the submit button.
 $("#submit-btn").click(function() {
   questionIndex++;
   empty();
