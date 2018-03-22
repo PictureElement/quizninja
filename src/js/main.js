@@ -39,6 +39,7 @@ function populate() {
     $("#card-answers").prepend(HTMLfalse);
     $("#card-answers").prepend(HTMLtrue);
   }
+  questionIndex++;
 }
 
 // Empty play area
@@ -56,7 +57,9 @@ $.getJSON("https://proto.io/en/jobs/candidate-questions/quiz.json", function(res
 
 // Attach click event to the submit button.
 $("#submit-btn").click(function() {
-  questionIndex++;
+  
   empty();
   populate();
 });
+
+//The .hasClass() method will return true if the class is assigned to an element,
