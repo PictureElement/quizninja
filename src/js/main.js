@@ -3,6 +3,7 @@ function populate(quiz) {
   
   var score = 0;
   var currentQuestionIndex = 0;
+  var 
   
   // Show image  
   var formattedImage = HTMLimage.replace("%data%", quiz.questions[currentQuestionIndex].img); // Replace the %data% placeholder text
@@ -10,9 +11,15 @@ function populate(quiz) {
 
   // Show question
   var formattedQuestion = HTMLquestion.replace("%data%", quiz.questions[currentQuestionIndex].title); 
-  $("#card-body").append(formattedQuestion);
+  $("#card-body").prepend(formattedQuestion);
 
-  
+  // Show possible answers
+  for (var i = 0; i < quiz.questions[currentQuestionIndex].possible_answers.length; i++) {
+    
+  }
+
+
+
 }
 
 // Quiz object
