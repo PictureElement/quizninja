@@ -4,8 +4,14 @@ function Quiz(questions, id, title, description) {
   this.id = id;
   this.title = title;
   this.description = description;
-  this.currentQuestionIndex = 0;
+  this.questionIndex = 0;
   this.score = 0;
+}
+
+// To save memory and keep things DRY, we can add methods to the ctor function's 
+// prototype
+Quiz.prototype.getQuestionIndex = function() {
+  return this.questionIndex;
 }
 
 // Quiz object
@@ -20,6 +26,7 @@ $("#play-btn").click(function() {
     });
     // Initialize the quiz object
     quiz = new Quiz(questions, response.quiz_id, response.title, response.description);
+    alert(quiz.getQuestionIndex());
   });
 });
 
