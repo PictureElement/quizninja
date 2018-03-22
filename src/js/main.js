@@ -18,9 +18,11 @@ $("#play-btn").click(function() {
     $(response.questions).each(function(index, value) {
       questions.push(value);
     });
+    // Initialize the quiz object
     quiz = new Quiz(questions, response.quiz_id, response.title, response.description);
   });
 });
+
 
 
 
