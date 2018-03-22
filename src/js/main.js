@@ -1,12 +1,18 @@
 // Populate play area
 function populate(quiz) {
+  
   var score = 0;
   var currentQuestionIndex = 0;
+  
+  // Show image  
+  var formattedImage = HTMLimage.replace("%data%", quiz.questions[currentQuestionIndex].img); // Replace the %data% placeholder text
+  $("#card-image").append(formattedImage); // Append image
 
-  // Replace the %data% placeholder text
-  var formattedCardImage = HTMLcardImage.replace("%data%", quiz.questions[currentQuestionIndex].img);
-  // Append image
-  $("#card-image").append(formattedCardImage);
+  // Show question
+  var formattedQuestion = HTMLquestion.replace("%data%", quiz.questions[currentQuestionIndex].title); 
+  $("#card-body").append(formattedQuestion);
+
+  
 }
 
 // Quiz object
