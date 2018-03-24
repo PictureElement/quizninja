@@ -1,10 +1,30 @@
 var quiz;
 var score = 0;
 var questionIndex = 0;
+var secondsLeft = 10;
+var previousTimestamp;
+var myReq;
+
+
+function timer() {
+  // Get timestamp
+  var CurrentTimestamp = (new Date()).getTime();
+  // Update DOM, if the progress is greater or equal to 1 second
+  if (CurrentTimestamp - previousTimestamp >= 1000) {
+    secondsLeft--;
+    previousTimestamp = CurrentTimestamp;
+    $("#countdown").empty();
+    $("#countdown").append(secondsLeft+"&quot;");
+  }
+  if (secondsLeft === 0) {
+    alert("Timeout!");
+    return;
+  }
+  window.requestAnimationFrame(timer);
+}
 
 // Populate play area
 function populate() {
-
   // Get question type
   var questionType = quiz.questions[questionIndex].question_type;
 
@@ -23,7 +43,7 @@ function populate() {
     for (var i = 0; i < quiz.questions[questionIndex].possible_answers.length; i++) {
       formattedRadio = HTMLradio.replace("%data1%", i+1);
       formattedRadio = formattedRadio.replace("%data2%", quiz.questions[questionIndex].possible_answers[i].caption);
-      $("#card-answers").prepend(formattedRadio);
+      $("#card-answers").append(formattedRadio);
     }
   }
   else if (questionType === "mutiplechoice-multiple") { // For multiple choice (multiple) use checkbox buttons
@@ -32,14 +52,19 @@ function populate() {
     for (var i = 0; i < quiz.questions[questionIndex].possible_answers.length; i++) {
       formattedCheckbox = HTMLcheckbox.replace("%data1%", i+1);
       formattedCheckbox = formattedCheckbox.replace("%data2%", quiz.questions[questionIndex].possible_answers[i].caption);
-      $("#card-answers").prepend(formattedCheckbox);
+      $("#card-answers").append(formattedCheckbox);
     }
   }
   else { // For true-false use radio buttons as well
-    $("#card-answers").prepend(HTMLfalse);
-    $("#card-answers").prepend(HTMLtrue);
+    $("#card-answers").append(HTMLfalse);
+    $("#card-answers").append(HTMLtrue);
   }
   questionIndex++;
+
+  // Get timestamp
+  previousTimestamp = (new Date()).getTime();
+  // Start countdown
+  myReq = window.requestAnimationFrame(timer);
 }
 
 // Empty play area
@@ -57,7 +82,16 @@ $.getJSON("https://proto.io/en/jobs/candidate-questions/quiz.json", function(res
 
 // Attach click event to the submit button.
 $("#submit-btn").click(function() {
-  
+  // Cancel animation frame previously scheduled in populate()
+  window.cancelAnimationFrame(myReq);
+  // Reset countdown
+  secondsLeft = 10;
+  $("#countdown").empty();
+  $("#countdown").append(secondsLeft + "&quot;");
+
+
+  var option1 = $("#option1").hasClass("active");
+  console.log(option1);
   empty();
   populate();
 });
