@@ -82,8 +82,8 @@ $.getJSON("https://proto.io/en/jobs/candidate-questions/quiz.json", function(res
   populate();
 });
 
-// Attach click event to the submit button.
-$("#submit-btn").click(function() {
+// Submit & Timeout callback
+function SubmitCallback() {
   questionIndex++;
 
   // Update progress bar
@@ -106,6 +106,11 @@ $("#submit-btn").click(function() {
     empty();
     populate();
   }
-});
+}
+
+// Attach click event to the submit button.
+$("#submit-btn").click(SubmitCallback);
+
+
 
 //The .hasClass() method will return true if the class is assigned to an element,
