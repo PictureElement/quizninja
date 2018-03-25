@@ -82,29 +82,33 @@ $.getJSON("https://proto.io/en/jobs/candidate-questions/quiz.json", function(res
   populate();
 });
 
-
-var option1 = $("#option1").hasClass("active");
-console.log(option1);
-
+// Validate submission
 function validate() {
-
   var type = quiz.questions[questionIndex].question_type;
   var answer = quiz.questions[questionIndex].correct_answer;
   var points = quiz.questions[questionIndex].correct_points;
   
   if (type === "mutiplechoice-single") {
     if ( $("#option" + answer).hasClass("active") ) {
-      alert("Correct answer");
+      //alert("Correct answer");
       score += points;
     }
     else {
-      alert("Wrong answer");
+      //alert("Wrong answer");
+      // Highlight wrong answer
+      $(".active").removeClass("btn-light");
+      $(".active").addClass("btn-danger");
     }
+    // Highlight correct answer
+    $("#option" + answer).removeClass("btn-light");
+    $("#option" + answer).addClass("btn-success");
   }
   else if (type === "mutiplechoice-multiple") {
     var isCorrect = true;
     for (var  i = 0; i < answer.length; i++) {
       if ( $("#option" + answer[i]).hasClass("active") ) {
+        $("#option" + answer).removeClass("btn-light");
+        $("#option" + answer).addClass("btn-success");
         continue;
       }
       else {
@@ -117,7 +121,15 @@ function validate() {
       score += points;
     }
     else {
-      alert("Wrong answer");
+      //alert("Wrong answer");
+      // Highlight wrong answer
+      $(".active").removeClass("btn-light");
+      $(".active").addClass("btn-danger");
+    }
+    // Highlight correct answer
+    for (var  i = 0; i < answer.length; i++) {
+      $("#option" + answer[i]).removeClass("btn-danger");
+      $("#option" + answer[i]).addClass("btn-success");
     }
   }
   else {
@@ -129,12 +141,18 @@ function validate() {
       choice = false;
     }
     if (choice === answer) {
-      alert("Correct answer");
+      //alert("Correct answer");
       score += points;
     }
     else {
-      alert("Wrong answer");
+      //alert("Wrong answer");
+      // Highlight wrong answer
+      $(".active").removeClass("btn-light");
+      $(".active").addClass("btn-danger");
     }
+    // Highlight correct answer
+    $("#" + answer).removeClass("btn-light");
+    $("#" + answer).addClass("btn-success");
   }
 };
 
@@ -157,9 +175,9 @@ function submitCallback() {
 
   // Next question
   if (progress !== 100) {
-    empty();
     questionIndex++;
-    populate();
+    setTimeout(empty, 3000);
+    setTimeout(populate, 3000);
   }
 }
 
