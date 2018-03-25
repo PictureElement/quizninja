@@ -4,7 +4,8 @@ var questionIndex = 0;
 var secondsLeft = 10;
 var previousTimestamp;
 var myReq;
-
+var numQuestions;
+var progress = 0;
 
 function timer() {
   // Get timestamp
@@ -59,7 +60,6 @@ function populate() {
     $("#card-answers").append(HTMLfalse);
     $("#card-answers").append(HTMLtrue);
   }
-  questionIndex++;
 
   // Get timestamp
   previousTimestamp = (new Date()).getTime();
@@ -77,11 +77,20 @@ function empty() {
 // Requests data from the server with an HTTP GET request
 $.getJSON("https://proto.io/en/jobs/candidate-questions/quiz.json", function(response) {
   quiz = response;
+  // Get the number of questions
+  numQuestions = quiz.questions.length;
   populate();
 });
 
 // Attach click event to the submit button.
 $("#submit-btn").click(function() {
+  questionIndex++;
+
+  // Update progress bar
+  progress = (questionIndex / numQuestions) * 100;
+  $("#progress-bar").css("width", progress + "%");
+  $("#progress-bar").attr("aria-valuenow", progress);
+
   // Cancel animation frame previously scheduled in populate()
   window.cancelAnimationFrame(myReq);
   // Reset countdown
@@ -89,11 +98,14 @@ $("#submit-btn").click(function() {
   $("#countdown").empty();
   $("#countdown").append(secondsLeft + "&quot;");
 
-
   var option1 = $("#option1").hasClass("active");
   console.log(option1);
-  empty();
-  populate();
+
+  // Next question
+  if (progress !== 100) {
+    empty();
+    populate();
+  }
 });
 
 //The .hasClass() method will return true if the class is assigned to an element,
