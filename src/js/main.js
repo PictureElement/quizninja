@@ -18,7 +18,7 @@ function timer() {
     $("#countdown").append(secondsLeft+"&quot;");
   }
   if (secondsLeft === 0) {
-    alert("Timeout!");
+    console.log("Timeout!")
     return;
   }
   window.requestAnimationFrame(timer);
@@ -42,7 +42,7 @@ function populate() {
     var formattedRadio;
     // Show possible answers
     for (var i = 0; i < quiz.questions[questionIndex].possible_answers.length; i++) {
-      formattedRadio = HTMLradio.replace("%data1%", i+1);
+      formattedRadio = HTMLradio.replace("%data1%", quiz.questions[questionIndex].possible_answers[i].a_id);
       formattedRadio = formattedRadio.replace("%data2%", quiz.questions[questionIndex].possible_answers[i].caption);
       $("#card-answers").append(formattedRadio);
     }
@@ -51,7 +51,7 @@ function populate() {
     var formattedCheckbox;
     // Show possible answers
     for (var i = 0; i < quiz.questions[questionIndex].possible_answers.length; i++) {
-      formattedCheckbox = HTMLcheckbox.replace("%data1%", i+1);
+      formattedCheckbox = HTMLcheckbox.replace("%data1%", quiz.questions[questionIndex].possible_answers[i].a_id);
       formattedCheckbox = formattedCheckbox.replace("%data2%", quiz.questions[questionIndex].possible_answers[i].caption);
       $("#card-answers").append(formattedCheckbox);
     }
@@ -82,12 +82,69 @@ $.getJSON("https://proto.io/en/jobs/candidate-questions/quiz.json", function(res
   populate();
 });
 
-// Submit & Timeout callback
-function SubmitCallback() {
-  questionIndex++;
 
-  // Update progress bar
-  progress = (questionIndex / numQuestions) * 100;
+var option1 = $("#option1").hasClass("active");
+console.log(option1);
+
+function validate() {
+
+  var type = quiz.questions[questionIndex].question_type;
+  var answer = quiz.questions[questionIndex].correct_answer;
+  var points = quiz.questions[questionIndex].correct_points;
+  
+  if (type === "mutiplechoice-single") {
+    if ( $("#option" + answer).hasClass("active") ) {
+      alert("Correct answer");
+      score += points;
+    }
+    else {
+      alert("Wrong answer");
+    }
+  }
+  else if (type === "mutiplechoice-multiple") {
+    var isCorrect = true;
+    for (var  i = 0; i < answer.length; i++) {
+      if ( $("#option" + answer[i]).hasClass("active") ) {
+        continue;
+      }
+      else {
+        isCorrect = false;
+        break;
+      }
+    }
+    if (isCorrect) {
+      alert("Correct answer");
+      score += points;
+    }
+    else {
+      alert("Wrong answer");
+    }
+  }
+  else {
+    var choice;
+    if ( $("#true").hasClass("active") ) {
+      choice = true;
+    }
+    else {
+      choice = false;
+    }
+    if (choice === answer) {
+      alert("Correct answer");
+      score += points;
+    }
+    else {
+      alert("Wrong answer");
+    }
+  }
+};
+
+// Submit & Timeout callback
+function submitCallback() {
+  validate();
+  
+  // Update progress bar 
+  progress = ((questionIndex + 1) / numQuestions) * 100;
+  console.log(progress);
   $("#progress-bar").css("width", progress + "%");
   $("#progress-bar").attr("aria-valuenow", progress);
 
@@ -98,19 +155,13 @@ function SubmitCallback() {
   $("#countdown").empty();
   $("#countdown").append(secondsLeft + "&quot;");
 
-  var option1 = $("#option1").hasClass("active");
-  console.log(option1);
-
   // Next question
   if (progress !== 100) {
     empty();
+    questionIndex++;
     populate();
   }
 }
 
 // Attach click event to the submit button.
-$("#submit-btn").click(SubmitCallback);
-
-
-
-//The .hasClass() method will return true if the class is assigned to an element,
+$("#submit-btn").click(submitCallback);
