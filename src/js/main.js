@@ -10,6 +10,7 @@ var sfxNinjaStar = new Audio('media/sfx-ninja-star.mp3');
 var sfxInvalid = new Audio('media/sfx-invalid-tone.mp3');
 var sfxValid = new Audio('media/sfx-valid-tone.mp3');
 var soundtrackMain = new Audio('media/soundtrack-main.mp3');
+var soundtrackEnd = new Audio('media/soundtrack-end.mp3');
 
 function timer() {
   // Get timestamp
@@ -89,6 +90,16 @@ $.getJSON("https://proto.io/en/jobs/candidate-questions/quiz.json", function(res
   populate();
 });
 
+function arraysEqual(arr1, arr2) {
+  if(arr1.length !== arr2.length)
+    return false;
+  for(var i = arr1.length; i--;) {
+    if(arr1[i] !== arr2[i])
+      return false;
+  }
+  return true;
+}
+
 // Validate submission
 function validate() {
   var type = quiz.questions[questionIndex].question_type;
@@ -115,48 +126,58 @@ function validate() {
   }
   else if (type === "mutiplechoice-multiple") {
     
-    var isCorrect = true;
-    
-    firstAnswerID = quiz.questions[questionIndex].possible_answers[0].a_id; 
-    numAnswers = quiz.questions[questionIndex].possible_answers.length;
-    highlightColor = [];
+    var ids = [];
+    var answerBitVector = [];
+    var choiceBitVector = [];
+    var firstAnswerId = quiz.questions[questionIndex].possible_answers[0].a_id; 
+    var numAnswers = quiz.questions[questionIndex].possible_answers.length;
 
-    for (var  i = firstAnswerID; i < firstAnswerID + numAnswers; i++) {
+    var flag;
+    for (var  i = firstAnswerId; i < firstAnswerId + numAnswers; i++) {
+      
+      ids.push(i);
+
+      // Build answer bit vector
       if ( answer.includes(i) ) {
-        highlightColor.push("success");
-      }
-      else if ( $("#option" + i).hasClass("active") ) {
-        isCorrect = false;
-        highlightColor.push("danger");
+        answerBitVector.push(1);
+        // Indicate that the current answer is correct
+        flag = true;
+        $("#option" + i).removeClass("btn-light");
+        $("#option" + i).addClass("btn-success");
       }
       else {
-        highlightColor.push("neutral");
+        // Indicate that the current answer is incorrect
+        flag = false;
+        answerBitVector.push(0);
+      }
+
+      // Build choice bit vector
+      if ( $("#option" + i).hasClass("active") ) {
+        choiceBitVector.push(1);
+        // Indicate wrong choice
+        if (flag === false) {
+          $("#option" + i).removeClass("btn-light");
+          $("#option" + i).addClass("btn-danger");
+        }
+      }
+      else {
+        choiceBitVector.push(0);
       }
     }
 
-    // Update score
-    if (isCorrect) {
+    //console.log(answerBitVector);
+    //console.log(choiceBitVector);
+
+    // Validate 
+    var isCorrect;
+    if (arraysEqual(answerBitVector, choiceBitVector)) {
       sfxValid.play();
-      //alert("Correct answer");
+      isCorrect = true;
       score += points;
     }
     else {
       sfxInvalid.play();
-    }
-
-    // Highlight correct and wrong answers
-    var counter = 0;
-    for (var  i = firstAnswerID; i < firstAnswerID + numAnswers; i++) {
-      switch (highlightColor[counter]) {
-        case "success":
-          $("#option" + i).removeClass("btn-light");
-          $("#option" + i).addClass("btn-success");
-          break;
-        case "danger":
-          $("#option" + i).removeClass("btn-light");
-          $("#option" + i).addClass("btn-danger");
-      }
-      counter++;
+      isCorrect = false;
     }
   }
   else { // True-false 
@@ -207,6 +228,10 @@ function submitCallback() {
     secondsLeft = 10;
     $("#countdown").empty();
     $("#countdown").append(secondsLeft + "&quot;");
+  }
+  else {
+    soundtrackMain.pause();
+    soundtrackEnd.play();
   }
 }
 
