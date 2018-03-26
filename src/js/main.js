@@ -31,6 +31,12 @@ function timer() {
 
 // Populate play area
 function populate() {
+
+  // Reset countdown
+  secondsLeft = 10;
+  $("#countdown").empty();
+  $("#countdown").append(secondsLeft + "&quot;");
+
   // Get question type
   var questionType = quiz.questions[questionIndex].question_type;
 
@@ -73,7 +79,7 @@ function populate() {
 }
 
 // Empty play area
-function empty() {
+function emptyPlayArea() {
   $("#card-image").empty();
   $("#card-title").empty();
   $("#card-answers").empty();
@@ -103,7 +109,7 @@ function arraysEqual(arr1, arr2) {
 // Validate submission
 function validate() {
   var type = quiz.questions[questionIndex].question_type;
-  var points = quiz.questions[questionIndex].correct_points;
+  var points = quiz.questions[questionIndex].points;
   var answer = quiz.questions[questionIndex].correct_answer;
   
   if (type === "mutiplechoice-single") {
@@ -222,12 +228,11 @@ function submitCallback() {
   // Next question
   if (progress !== 100) {
     questionIndex++;
-    setTimeout(empty, 3000);
+    setTimeout(emptyPlayArea, 3000);
     setTimeout(populate, 3000);
-    // Reset countdown
-    secondsLeft = 10;
-    $("#countdown").empty();
-    $("#countdown").append(secondsLeft + "&quot;");
+    // Update score
+    $("#score").empty();
+    $("#score").append(score);
   }
   else {
     soundtrackMain.pause();
