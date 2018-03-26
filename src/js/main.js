@@ -6,6 +6,10 @@ var previousTimestamp;
 var myReq;
 var numQuestions;
 var progress = 0;
+var sfxNinjaStar = new Audio('media/sfx-ninja-star.mp3');
+var sfxInvalid = new Audio('media/sfx-invalid-tone.mp3');
+var sfxValid = new Audio('media/sfx-valid-tone.mp3');
+var soundtrackMain = new Audio('media/soundtrack-main.mp3');
 
 function timer() {
   // Get timestamp
@@ -76,6 +80,9 @@ function empty() {
 
 // Requests data from the server with an HTTP GET request
 $.getJSON("https://proto.io/en/jobs/candidate-questions/quiz.json", function(response) {
+  sfxNinjaStar.play();
+  soundtrackMain.loop = true;
+  soundtrackMain.play();
   quiz = response;
   // Get the number of questions
   numQuestions = quiz.questions.length;
@@ -91,13 +98,16 @@ function validate() {
   if (type === "mutiplechoice-single") {
     if ( $("#option" + answer).hasClass("active") ) {
       //alert("Correct answer");
+      sfxValid.play();
       score += points;
     }
     else {
+      sfxInvalid.play();
       //alert("Wrong answer");
       // Highlight wrong answer
       $(".active").removeClass("btn-light");
       $(".active").addClass("btn-danger");
+
     }
     // Highlight correct answer
     $("#option" + answer).removeClass("btn-light");
@@ -115,20 +125,23 @@ function validate() {
       if ( answer.includes(i) ) {
         highlightColor.push("success");
       }
-      else if ( $("#option" + i).hasClass("active") && !answer.includes(i) ) {
+      else if ( $("#option" + i).hasClass("active") ) {
         isCorrect = false;
         highlightColor.push("danger");
       }
       else {
-        isCorrect = false;
         highlightColor.push("neutral");
       }
     }
 
     // Update score
     if (isCorrect) {
+      sfxValid.play();
       //alert("Correct answer");
       score += points;
+    }
+    else {
+      sfxInvalid.play();
     }
 
     // Highlight correct and wrong answers
@@ -146,7 +159,7 @@ function validate() {
       counter++;
     }
   }
-  else {
+  else { // True-false 
     var choice;
     if ( $("#true").hasClass("active") ) {
       choice = true;
@@ -156,10 +169,12 @@ function validate() {
     }
     if (choice === answer) {
       //alert("Correct answer");
+      sfxValid.play();
       score += points;
     }
     else {
       //alert("Wrong answer");
+      sfxInvalid.play();
       // Highlight wrong answer
       $(".active").removeClass("btn-light");
       $(".active").addClass("btn-danger");
