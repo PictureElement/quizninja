@@ -1,5 +1,6 @@
 var quiz;
-var score = 0;
+var points = 0;
+var maxPoints = 0;
 var questionIndex = 0;
 var secondsLeft = 10;
 var previousTimestamp;
@@ -109,22 +110,20 @@ function arraysEqual(arr1, arr2) {
 // Validate submission
 function validate() {
   var type = quiz.questions[questionIndex].question_type;
-  var points = quiz.questions[questionIndex].points;
+  var questionPoints = quiz.questions[questionIndex].points;
+  maxPoints += questionPoints;
   var answer = quiz.questions[questionIndex].correct_answer;
   
   if (type === "mutiplechoice-single") {
     if ( $("#option" + answer).hasClass("active") ) {
-      //alert("Correct answer");
       sfxValid.play();
-      score += points;
+      points += questionPoints;
     }
     else {
       sfxInvalid.play();
-      //alert("Wrong answer");
       // Highlight wrong answer
       $(".active").removeClass("btn-light");
       $(".active").addClass("btn-danger");
-
     }
     // Highlight correct answer
     $("#option" + answer).removeClass("btn-light");
@@ -171,15 +170,12 @@ function validate() {
       }
     }
 
-    //console.log(answerBitVector);
-    //console.log(choiceBitVector);
-
     // Validate 
     var isCorrect;
     if (arraysEqual(answerBitVector, choiceBitVector)) {
       sfxValid.play();
       isCorrect = true;
-      score += points;
+      points += questionPoints;
     }
     else {
       sfxInvalid.play();
@@ -195,12 +191,10 @@ function validate() {
       choice = false;
     }
     if (choice === answer) {
-      //alert("Correct answer");
       sfxValid.play();
-      score += points;
+      points += questionPoints;
     }
     else {
-      //alert("Wrong answer");
       sfxInvalid.play();
       // Highlight wrong answer
       $(".active").removeClass("btn-light");
@@ -218,25 +212,36 @@ function submitCallback() {
   
   // Update progress bar 
   progress = ((questionIndex + 1) / numQuestions) * 100;
-  console.log(progress);
   $("#progress-bar").css("width", progress + "%");
   $("#progress-bar").attr("aria-valuenow", progress);
 
   // Cancel animation frame previously scheduled in populate()
   window.cancelAnimationFrame(myReq);
   
+  // Update points
+  $("#points").empty();
+  $("#points").append(points);
+
   // Next question
   if (progress !== 100) {
     questionIndex++;
     setTimeout(emptyPlayArea, 3000);
     setTimeout(populate, 3000);
-    // Update score
-    $("#score").empty();
-    $("#score").append(score);
   }
   else {
     soundtrackMain.pause();
     soundtrackEnd.play();
+    $(".container").empty();
+    var score = (points / maxPoints) * 100;
+    if (score <= 33) {
+      $(".container").append("Not good. You are lucky we don't feed your score to the hounds!");
+    }
+    else if (score <= 66) {
+      $(".container").append("An average attempt. Sansa isn't very impressed by your lack of Season 6 knowledge.");
+    }
+    else {
+      $(".container").append("Dragonfire! Daenerys likes your score. You may live.");
+    }
   }
 }
 
