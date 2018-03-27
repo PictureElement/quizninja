@@ -4,7 +4,8 @@ var maxPoints = 0;
 var questionIndex = 0;
 var secondsLeft = 10;
 var previousTimestamp;
-var myReq;
+// var myReq;
+var timeID;
 var numQuestions;
 var progress = 0;
 var sfxNinjaStar = new Audio('media/sfx-ninja-star.mp3');
@@ -13,9 +14,10 @@ var sfxValid = new Audio('media/sfx-valid-tone.mp3');
 var soundtrackMain = new Audio('media/soundtrack-main.mp3');
 var soundtrackEnd = new Audio('media/soundtrack-end.mp3');
 
-function timer() {
+function countdown() {
   // Get timestamp
   var CurrentTimestamp = (new Date()).getTime();
+
   // Update DOM, if the progress is greater or equal to 1 second
   if (CurrentTimestamp - previousTimestamp >= 1000) {
     secondsLeft--;
@@ -24,19 +26,20 @@ function timer() {
     $("#countdown").append(secondsLeft+"&quot;");
   }
   if (secondsLeft === 0) {
-    console.log("Timeout!")
-    return;
+    submitCallback();
   }
-  window.requestAnimationFrame(timer);
+  else {
+    timeID = requestAnimationFrame(countdown);
+  }
 }
 
 // Populate play area
 function populate() {
-
-  // Reset countdown
-  secondsLeft = 10;
-  $("#countdown").empty();
-  $("#countdown").append(secondsLeft + "&quot;");
+  
+  // Update progress bar 
+  progress = (questionIndex / numQuestions) * 100;
+  $("#progress-bar").css("width", progress + "%");
+  $("#progress-bar").attr("aria-valuenow", progress);
 
   // Get question type
   var questionType = quiz.questions[questionIndex].question_type;
@@ -73,10 +76,12 @@ function populate() {
     $("#card-answers").append(HTMLtrue);
   }
 
+  // Reset timer
+  secondsLeft = 10;
   // Get timestamp
   previousTimestamp = (new Date()).getTime();
   // Start countdown
-  myReq = window.requestAnimationFrame(timer);
+  countdown();
 }
 
 // Empty play area
@@ -208,26 +213,26 @@ function validate() {
 
 // Submit & Timeout callback
 function submitCallback() {
-  validate();
   
-  // Update progress bar 
-  progress = ((questionIndex + 1) / numQuestions) * 100;
-  $("#progress-bar").css("width", progress + "%");
-  $("#progress-bar").attr("aria-valuenow", progress);
-
   // Cancel animation frame previously scheduled in populate()
-  window.cancelAnimationFrame(myReq);
+  window.cancelAnimationFrame(timeID);
+
+  // Validate answer
+  validate();
   
   // Update points
   $("#points").empty();
   $("#points").append(points);
-
+  
   // Next question
-  if (progress !== 100) {
-    questionIndex++;
+  questionIndex++;
+  console.log(questionIndex);
+  // Show next question
+  if (questionIndex < numQuestions) {
     setTimeout(emptyPlayArea, 3000);
     setTimeout(populate, 3000);
   }
+  // Show results
   else {
     soundtrackMain.pause();
     soundtrackEnd.play();
