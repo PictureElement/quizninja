@@ -1,3 +1,4 @@
+// Global variables
 var quiz;
 var points;
 var maxPoints;
@@ -12,9 +13,10 @@ var sfxInvalid;
 var sfxValid;
 var soundtrackMain;
 var soundtrackEnd;
+var result;
 
 function countdown() {
-  // Get timestamp
+  // Get current timestamp
   var CurrentTimestamp = (new Date()).getTime();
 
   // Update DOM, if the progress is greater or equal to 1 second
@@ -34,6 +36,13 @@ function countdown() {
 
 // Populate play area
 function populate() {
+
+  // Reset timer
+  secondsLeft = 10;
+
+  // Update timer 
+  $("#countdown").empty();
+  $("#countdown").append(secondsLeft+"&quot;");
   
   // Update progress bar 
   progress = (questionIndex / numQuestions) * 100;
@@ -75,16 +84,14 @@ function populate() {
     $("#card-answers").append(HTMLtrue);
   }
 
-  // Reset timer
-  secondsLeft = 10;
   // Get timestamp
   previousTimestamp = (new Date()).getTime();
   // Start countdown
   countdown();
 }
 
-// Empty play area
-function emptyPlayArea() {
+// Empty card area
+function emptyCard() {
   $("#card-image").empty();
   $("#card-title").empty();
   $("#card-answers").empty();
@@ -130,12 +137,13 @@ function arraysEqual(arr1, arr2) {
   return true;
 }
 
-// Validate submission
+// Validate answer
 function validate() {
+
   var type = quiz.questions[questionIndex].question_type;
   var questionPoints = quiz.questions[questionIndex].points;
-  maxPoints += questionPoints;
   var answer = quiz.questions[questionIndex].correct_answer;
+  maxPoints += questionPoints;
   
   if (type === "mutiplechoice-single") {
     if ( $("#option" + answer).hasClass("active") ) {
@@ -229,6 +237,52 @@ function validate() {
   }
 };
 
+function showResult(response) {
+  // Calculate score as a percentage
+  var score = (points / maxPoints) * 100;
+
+  // Choose appropriate message
+  var resultID;
+  for (var  i = 0; i < response.results.length; i++) {
+    if ( score >= response.results[i].minpoints && score <= response.results[i].maxpoints ) {
+      resultID = i;
+      break;
+    }
+  }
+
+  // Update DOM
+  $(".container").css("background", "#f2b632");
+  
+  emptyCard();
+  $("#card-header").remove();
+  $("#card-footer").remove();
+
+  // Show image  
+  var formattedImage = HTMLimage.replace("%data%", response.results[resultID].img); // Replace the %data% placeholder text
+  $("#card-image").append(formattedImage); // Append image
+
+  // Show title
+  var formattedQuestion = HTMLquestion.replace("%data%", response.results[resultID].title); 
+  $("#card-title").append(formattedQuestion);
+
+  // Show message
+  var formattedQuestion = HTMLquestion.replace("%data%", response.results[resultID].message); 
+  $("#card-title").append(formattedQuestion);
+}
+
+function gameover() {
+  // Stop main soundtrack
+  soundtrackMain.pause();
+  soundtrackMain.currentTime = 0;
+  // Play gameover soundtrack
+  soundtrackEnd.play();
+
+  // Requests data from the server with an HTTP GET request
+  $.getJSON("https://proto.io/en/jobs/candidate-questions/result.json", function(response) {
+    showResult(response);
+  });
+}
+
 // Submit & Timeout callback
 function submitCallback() {
   
@@ -244,32 +298,20 @@ function submitCallback() {
   
   // Next question
   questionIndex++;
-  console.log(questionIndex);
+
   // Show next question
   if (questionIndex < numQuestions) {
-    setTimeout(emptyPlayArea, 3000);
+    setTimeout(emptyCard, 3000);
     setTimeout(populate, 3000);
   }
-  // Show results
+  // Game over
   else {
-    soundtrackMain.pause();
-    soundtrackEnd.play();
-    $(".container").empty();
-    var score = (points / maxPoints) * 100;
-    if (score <= 33) {
-      $(".container").append("Not good. You are lucky we don't feed your score to the hounds!");
-    }
-    else if (score <= 66) {
-      $(".container").append("An average attempt. Sansa isn't very impressed by your lack of Season 6 knowledge.");
-    }
-    else {
-      $(".container").append("Dragonfire! Daenerys likes your score. You may live.");
-    }
+    gameover();
   }
 }
 
 // Attach click event to the submit button.
 $("#submit-btn").click(submitCallback);
 
-
+// Initialize game
 init();
