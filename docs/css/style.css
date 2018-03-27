@@ -1,0 +1,50 @@
+/*
+ * BASE STRUCTURE
+ */ 
+
+html, body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.jumbotron {
+  min-height: 100vh;
+  padding: 1rem;
+  margin: 0;
+  background: #f2b632;
+  text-align: center;
+  /* Horizontally and vertically center .container */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*
+ * HOME  
+ */
+
+.container {
+  padding: 0;
+  margin: 0;
+  max-width: 450px;
+}
+
+footer a {
+  color: #fff;
+}
+
+footer a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+/*
+ * PLAY AREA
+ */
+.c-footer {
+  display: flex;
+  /* Vertical alignment: center; */
+  align-items: center;
+  /* Horizontal alignmentt */
+  justify-content: space-between;
+}
