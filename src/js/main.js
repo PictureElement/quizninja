@@ -239,7 +239,7 @@ function validate() {
 
 function showResult(response) {
   // Calculate score as a percentage
-  var score = (points / maxPoints) * 100;
+  var score = 75; //(points / maxPoints) * 100;
 
   // Choose appropriate message
   var resultID;
@@ -261,21 +261,28 @@ function showResult(response) {
   var formattedImage = HTMLimage.replace("%data%", response.results[resultID].img); // Replace the %data% placeholder text
   $("#card-image").append(formattedImage); // Append image
 
+  // Show score
+  console.log(score);
+  var formattedScore = HTMLscore.replace(/%data%/g, score);
+  $("#card-title").append(formattedScore);
+
   // Show title
-  var formattedQuestion = HTMLquestion.replace("%data%", response.results[resultID].title); 
-  $("#card-title").append(formattedQuestion);
+  var formattedTitle = HTMLtitle.replace("%data%", response.results[resultID].title); 
+  $("#card-title").append(formattedTitle);
 
   // Show message
-  var formattedQuestion = HTMLquestion.replace("%data%", response.results[resultID].message); 
-  $("#card-title").append(formattedQuestion);
+  var formattedMessage = HTMLmessage.replace("%data%", response.results[resultID].message); 
+  $("#card-title").append(formattedMessage);
 }
 
 function gameover() {
+  /*
   // Stop main soundtrack
   soundtrackMain.pause();
   soundtrackMain.currentTime = 0;
   // Play gameover soundtrack
   soundtrackEnd.play();
+  */
 
   // Requests data from the server with an HTTP GET request
   $.getJSON("https://proto.io/en/jobs/candidate-questions/result.json", function(response) {
@@ -314,4 +321,5 @@ function submitCallback() {
 $("#submit-btn").click(submitCallback);
 
 // Initialize game
-init();
+// init();
+gameover();

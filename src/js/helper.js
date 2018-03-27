@@ -15,3 +15,7 @@ var HTMLcheckbox = '<label id="option%data1%" class="mb-2 btn btn-block btn-ligh
 var HTMLfalse = '<label id="false" class="mb-2 btn btn-block btn-light"><input type="radio" autocomplete="off" name="options"> False</label>';
 var HTMLtrue = '<label id="true" class="mb-2 btn btn-block btn-light"><input type="radio" autocomplete="off" name="options"> True</label>';
 
+// Gameover
+var HTMLscore = '<div class="progress"><div class="progress-bar" role="progressbar" style="width: %data%%;" aria-valuenow="%data%" aria-valuemin="0" aria-valuemax="100">%data%%</div></div>';
+var HTMLtitle = '<h5 class="bg-success text-center text-uppercase">%data%</h5>';
+var HTMLmessage = '<p class="p-3 m-0 text-center">%data%</p>';
