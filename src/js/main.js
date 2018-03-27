@@ -1,18 +1,17 @@
 var quiz;
-var points = 0;
-var maxPoints = 0;
-var questionIndex = 0;
-var secondsLeft = 10;
+var points;
+var maxPoints;
+var questionIndex;
+var secondsLeft;
 var previousTimestamp;
-// var myReq;
 var timeID;
 var numQuestions;
-var progress = 0;
-var sfxNinjaStar = new Audio('media/sfx-ninja-star.mp3');
-var sfxInvalid = new Audio('media/sfx-invalid-tone.mp3');
-var sfxValid = new Audio('media/sfx-valid-tone.mp3');
-var soundtrackMain = new Audio('media/soundtrack-main.mp3');
-var soundtrackEnd = new Audio('media/soundtrack-end.mp3');
+var progress;
+var sfxNinjaStar;
+var sfxInvalid;
+var sfxValid;
+var soundtrackMain;
+var soundtrackEnd;
 
 function countdown() {
   // Get timestamp
@@ -91,16 +90,35 @@ function emptyPlayArea() {
   $("#card-answers").empty();
 }
 
-// Requests data from the server with an HTTP GET request
-$.getJSON("https://proto.io/en/jobs/candidate-questions/quiz.json", function(response) {
+function init() {
+  
+  // Initialize variables
+  points = 0;
+  maxPoints = 0;
+  questionIndex = 0;
+  secondsLeft = 10;
+  progress = 0;
+  sfxNinjaStar = new Audio('media/sfx-ninja-star.mp3');
+  sfxInvalid = new Audio('media/sfx-invalid-tone.mp3');
+  sfxValid = new Audio('media/sfx-valid-tone.mp3');
+  soundtrackMain = new Audio('media/soundtrack-main.mp3');
+  soundtrackEnd = new Audio('media/soundtrack-end.mp3');
+
+  // Play sfx and main soundtrack
   sfxNinjaStar.play();
   soundtrackMain.loop = true;
   soundtrackMain.play();
-  quiz = response;
-  // Get the number of questions
-  numQuestions = quiz.questions.length;
-  populate();
-});
+
+  // Requests data from the server with an HTTP GET request
+  $.getJSON("https://proto.io/en/jobs/candidate-questions/quiz.json", function(response) {
+    // Get response
+    quiz = response;
+    // Get number of questions
+    numQuestions = quiz.questions.length;
+    // Populate play area (show first question)
+    populate();
+  });
+}
 
 function arraysEqual(arr1, arr2) {
   if(arr1.length !== arr2.length)
@@ -252,3 +270,6 @@ function submitCallback() {
 
 // Attach click event to the submit button.
 $("#submit-btn").click(submitCallback);
+
+
+init();
