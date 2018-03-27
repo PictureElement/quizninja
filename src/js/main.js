@@ -239,7 +239,7 @@ function validate() {
 
 function showResult(response) {
   // Calculate score as a percentage
-  var score = 75; //(points / maxPoints) * 100;
+  var score = (points / maxPoints) * 100;
 
   // Choose appropriate message
   var resultID;
@@ -276,13 +276,12 @@ function showResult(response) {
 }
 
 function gameover() {
-  /*
+
   // Stop main soundtrack
   soundtrackMain.pause();
   soundtrackMain.currentTime = 0;
   // Play gameover soundtrack
   soundtrackEnd.play();
-  */
 
   // Requests data from the server with an HTTP GET request
   $.getJSON("https://proto.io/en/jobs/candidate-questions/result.json", function(response) {
@@ -321,5 +320,4 @@ function submitCallback() {
 $("#submit-btn").click(submitCallback);
 
 // Initialize game
-// init();
-gameover();
+init();
