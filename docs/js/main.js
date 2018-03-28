@@ -8,7 +8,7 @@ var previousTimestamp;
 var timeID;
 var numQuestions;
 var progress;
-var sfxNinjaStar;
+var sfxKatana;
 var sfxInvalid;
 var sfxValid;
 var soundtrackMain;
@@ -105,14 +105,14 @@ function init() {
   questionIndex = 0;
   secondsLeft = 10;
   progress = 0;
-  sfxNinjaStar = new Audio('media/sfx-ninja-star.mp3');
+  sfxKatana = new Audio('media/sfx-katana.mp3');
   sfxInvalid = new Audio('media/sfx-invalid-tone.mp3');
   sfxValid = new Audio('media/sfx-valid-tone.mp3');
   soundtrackMain = new Audio('media/soundtrack-main.mp3');
   soundtrackEnd = new Audio('media/soundtrack-end.mp3');
 
   // Play sfx and main soundtrack
-  sfxNinjaStar.play();
+  sfxKatana.play();
   soundtrackMain.loop = true;
   soundtrackMain.play();
 
