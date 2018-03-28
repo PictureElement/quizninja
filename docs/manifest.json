@@ -1,0 +1,16 @@
+{
+  "name": "QuizNinja",
+  "short_name": "QuizNinja",
+  "description": "Test your knowledge on various topics in this traditional style trivia game.",
+  "icons": [
+    {
+      "src": "media/ninja-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/quizninja/",
+  "display": "fullscreen",
+  "background_color": "#ff0000",
+  "theme_color": "#00ff00"
+}
