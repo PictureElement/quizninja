@@ -109,12 +109,12 @@ function init() {
   questionIndex = 0;
   secondsLeft = 15;
   progress = 0;
-  sfxKatana = new Audio('media/sfx-katana.mp3');
-  sfxInvalid = new Audio('media/sfx-invalid-tone.mp3');
-  sfxValid = new Audio('media/sfx-valid-tone.mp3');
-  soundtrackMain = new Audio('media/soundtrack-main.mp3');
-  soundtrackEnd = new Audio('media/soundtrack-end.mp3');
-  sfxCountdown = new Audio('media/sfx-countdown.mp3');
+  sfxKatana = new Audio('../media/sfx-katana.mp3');
+  sfxInvalid = new Audio('../media/sfx-invalid-tone.mp3');
+  sfxValid = new Audio('../media/sfx-valid-tone.mp3');
+  soundtrackMain = new Audio('../media/soundtrack-main.mp3');
+  soundtrackEnd = new Audio('../media/soundtrack-end.mp3');
+  sfxCountdown = new Audio('../media/sfx-countdown.mp3');
 
   // Play sfx
   sfxKatana.play();
