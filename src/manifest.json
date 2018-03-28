@@ -4,7 +4,7 @@
   "description": "Test your knowledge on various topics in this traditional style trivia game.",
   "icons": [
     {
-      "src": "images/ninja-512x512.png",
+      "src": "media/ninja-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
