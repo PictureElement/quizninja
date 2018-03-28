@@ -58,7 +58,7 @@ function populate() {
 
   // Show image  
   var formattedImage = HTMLimage.replace("%data%", quiz.questions[questionIndex].img); // Replace the %data% placeholder text
-  var formattedImage = formattedImage.replace("http", "https"); // Serve content over HTTPS.
+  formattedImage = formattedImage.replace("http", "https"); // Serve content over HTTPS.
   $("#card-image").append(formattedImage); // Append image
 
   // Show question
@@ -266,6 +266,7 @@ function showResult(response) {
 
   // Show image  
   var formattedImage = HTMLimage.replace("%data%", response.results[resultID].img); // Replace the %data% placeholder text
+  formattedImage = formattedImage.replace("http", "https"); // Serve content over HTTPS.
   $("#card-image").append(formattedImage); // Append image
 
   // Show score
