@@ -308,7 +308,7 @@ function submitCallback() {
   
   // Update points
   $("#points").empty();
-  $("#points").append(points);
+  $("#points").append("Points: " + points);
   
   // Next question
   questionIndex++;
