@@ -22,6 +22,10 @@ function countdown() {
   // Update DOM, if the progress is greater or equal to 1 second
   if (CurrentTimestamp - previousTimestamp >= 1000) {
     secondsLeft--;
+    // Play 3-second countdown sfx
+    if (secondsLeft === 3) {
+      sfxCountdown.play();
+    }
     previousTimestamp = CurrentTimestamp;
     $("#countdown").empty();
     $("#countdown").append(secondsLeft+"&quot;");
@@ -38,7 +42,7 @@ function countdown() {
 function populate() {
 
   // Reset timer
-  secondsLeft = 10;
+  secondsLeft = 15;
 
   // Update timer 
   $("#countdown").empty();
@@ -103,16 +107,18 @@ function init() {
   points = 0;
   maxPoints = 0;
   questionIndex = 0;
-  secondsLeft = 10;
+  secondsLeft = 15;
   progress = 0;
   sfxKatana = new Audio('media/sfx-katana.mp3');
   sfxInvalid = new Audio('media/sfx-invalid-tone.mp3');
   sfxValid = new Audio('media/sfx-valid-tone.mp3');
   soundtrackMain = new Audio('media/soundtrack-main.mp3');
   soundtrackEnd = new Audio('media/soundtrack-end.mp3');
+  sfxCountdown = new Audio('media/sfx-countdown.mp3');
 
-  // Play sfx and main soundtrack
+  // Play sfx
   sfxKatana.play();
+  // Play main soundtrack
   soundtrackMain.loop = true;
   soundtrackMain.play();
 
