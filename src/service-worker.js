@@ -31,9 +31,15 @@ limitations under the License.
 
     '/quizninja/js/main.js',
     '/quizninja/js/helper.js',
+    'https://buttons.github.io/buttons.js',
+    'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js',
+    'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js',
 
+    'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
     '/quizninja/style/main.css',
 
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css',
+    
     '/quizninja/media/logo.svg',
     '/quizninja/media/sfx-countdown.mp3',
     '/quizninja/media/sfx-invalid-tone.mp3',
