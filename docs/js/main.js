@@ -102,6 +102,26 @@ function emptyCard() {
   $("#card-answers").empty();
 }
 
+function createHomepage() {
+  $(".container").empty();
+  $(".jumbotron").css("background", "#f2b632");
+  $(".jumbotron").removeClass("text-white");
+  $(".container").append(HTMLhomeHeader);
+  $(".container").append(HTMLhomeFooter);
+}
+
+function createPlayArea() {
+  $(".container").empty();
+  $(".jumbotron").css("background", "#343a40");
+  $(".jumbotron").addClass("text-white");
+  $(".container").append(HTMLcardHeader);
+  $(".container").append(HTMLcardImageWrapper);
+  $(".container").append(HTMLcardTitleWrapper);
+  $(".container").append(HTMLanswersWrapper);
+  $(".container").append(HTMLcardButtons);
+  $(".container").append(HTMLcardProgressBar);
+}
+
 function init() {
   
   // Initialize variables
@@ -119,9 +139,12 @@ function init() {
 
   // Play sfx
   sfxKatana.play();
+
   // Play main soundtrack
   soundtrackMain.loop = true;
   soundtrackMain.play();
+
+  createPlayArea();
 
   // Requests data from the server with an HTTP GET request
   $.getJSON("https://proto.io/en/jobs/candidate-questions/quiz.json", function(response) {
@@ -284,7 +307,6 @@ function showResult(response) {
 }
 
 function gameover() {
-
   // Stop main soundtrack
   soundtrackMain.pause();
   soundtrackMain.currentTime = 0;
@@ -299,7 +321,6 @@ function gameover() {
 
 // Submit & Timeout callback
 function submitCallback() {
-  
   // Cancel animation frame previously scheduled in populate()
   window.cancelAnimationFrame(timeID);
 
@@ -308,7 +329,7 @@ function submitCallback() {
   
   // Update points
   $("#points").empty();
-  $("#points").append("Points: " + points);
+  $("#points").append(points);
   
   // Next question
   questionIndex++;
@@ -324,8 +345,11 @@ function submitCallback() {
   }
 }
 
-// Attach click event to the submit button.
-$("#submit-btn").click(submitCallback);
+// Attach click event to the submit button (event delegation)
+$('.container').on("click", "#submit-btn", submitCallback);
 
-// Initialize game
-init();
+// Attach click event to the submit button (event delegation)
+$('.container').on("click", "#home-btn", createHomepage);
+
+// Attach click event to the play button (event delegation)
+$(".container").on("click", "#play-btn", init);

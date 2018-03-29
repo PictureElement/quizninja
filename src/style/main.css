@@ -1,11 +1,15 @@
 /*
- * BASE STRUCTURE
- */ 
+ * COMMON
+ */
 
 html, body {
   height: 100vh;
   margin: 0;
   padding: 0;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
 }
 
 .jumbotron {
@@ -20,32 +24,69 @@ html, body {
   align-items: center;
 }
 
-/*
- * HOME  
- */
-
 .container {
   padding: 0;
   margin: 0;
   max-width: 450px;
 }
 
+/*
+ * HOME PAGE
+ */
+
 footer a {
-  color: #fff;
+  color: #000;
 }
 
 footer a:hover {
-  color: #fff;
+  color: #000;
   text-decoration: none;
 }
-/*
- * PLAY AREA
- */
-.c-footer {
+
+.play-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
   padding: 0;
+  /* Horizontally and vertically center play icon */
   display: flex;
-  /* Vertical alignment: center; */
+  justify-content: center;
   align-items: center;
-  /* Horizontal alignmentt */
+
+}
+
+.play-btn i {
+  font-size: 25px;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.app-title {
+  font-family: 'Kaushan Script', cursive;
+}
+
+/*
+ * PLAY PAGE
+ */
+
+.countdown, .points {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  /* Horizontally and vertically center content within the badges */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-header {
+  display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.card-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
