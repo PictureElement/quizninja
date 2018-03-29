@@ -12,5 +12,6 @@
   "start_url": "/quizninja/",
   "display": "fullscreen",
   "background_color": "#f2b632",
-  "theme_color": "#00ff00"
+  // Theming the browser's address bar
+  "theme_color": "#f2b632"
 }
