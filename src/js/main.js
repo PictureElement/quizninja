@@ -106,6 +106,16 @@ function emptyCard() {
 }
 
 function createHomepage() {
+  // Cancel animation frame previously scheduled in populate()
+  window.cancelAnimationFrame(timeID);
+  // Stop possible running soundtracks
+  soundtrackMain.pause();
+  soundtrackMain.currentTime = 0;
+  soundtrackEnd.pause();
+  soundtrackEnd.currentTime = 0;
+  sfxCountdown.pause();
+  sfxCountdown.currentTime = 0;
+
   $(".container").empty();
   $(".jumbotron").css("background", "#f2b632");
   $(".jumbotron").removeClass("text-white");
@@ -114,6 +124,12 @@ function createHomepage() {
 }
 
 function createPlayArea() {
+  // Play sfx
+  sfxKatana.play();
+  // Play main soundtrack
+  soundtrackMain.loop = true;
+  soundtrackMain.play();
+
   $(".container").empty();
   $(".jumbotron").css("background", "#343a40");
   $(".jumbotron").addClass("text-white");
@@ -134,13 +150,6 @@ function init() {
   secondsLeft = 15;
   progress = 0;
       
-  // Play sfx
-  sfxKatana.play();
-
-  // Play main soundtrack
-  soundtrackMain.loop = true;
-  soundtrackMain.play();
-
   createPlayArea();
 
   // Requests data from the server with an HTTP GET request
