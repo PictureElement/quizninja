@@ -25,20 +25,16 @@ limitations under the License.
   var filesToCache = [
     '/quizninja/',
     '/quizninja/index.html',
-    '/quizninja/pages/play.html',
     '/quizninja/pages/offline.html',
     '/quizninja/pages/404.html',
 
     '/quizninja/js/main.js',
     '/quizninja/js/helper.js',
-    'https://buttons.github.io/buttons.js',
-    'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js',
-    'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js',
 
-    'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
     '/quizninja/style/main.css',
 
     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css',
+    'https://fonts.googleapis.com/css?family=Josefin+Sans|Kaushan+Script',
     
     '/quizninja/media/logo.svg',
     '/quizninja/media/sfx-countdown.mp3',
