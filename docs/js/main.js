@@ -8,7 +8,6 @@ var previousTimestamp;
 var timeID;
 var numQuestions;
 var progress;
-var result;
 
 // Audio variables
 var sfxCountdown = new Audio('media/sfx-countdown.mp3');
@@ -106,6 +105,16 @@ function emptyCard() {
 }
 
 function createHomepage() {
+  // Cancel animation frame previously scheduled in populate()
+  window.cancelAnimationFrame(timeID);
+  // Stop and reset possible running soundtracks
+  soundtrackMain.pause();
+  soundtrackMain.currentTime = 0;
+  soundtrackEnd.pause();
+  soundtrackEnd.currentTime = 0;
+  sfxCountdown.pause();
+  sfxCountdown.currentTime = 0;
+
   $(".container").empty();
   $(".jumbotron").css("background", "#f2b632");
   $(".jumbotron").removeClass("text-white");
@@ -114,6 +123,12 @@ function createHomepage() {
 }
 
 function createPlayArea() {
+  // Play sfx
+  sfxKatana.play();
+  // Play main soundtrack
+  soundtrackMain.loop = true;
+  soundtrackMain.play();
+
   $(".container").empty();
   $(".jumbotron").css("background", "#343a40");
   $(".jumbotron").addClass("text-white");
@@ -134,13 +149,6 @@ function init() {
   secondsLeft = 15;
   progress = 0;
       
-  // Play sfx
-  sfxKatana.play();
-
-  // Play main soundtrack
-  soundtrackMain.loop = true;
-  soundtrackMain.play();
-
   createPlayArea();
 
   // Requests data from the server with an HTTP GET request
@@ -262,7 +270,7 @@ function validate() {
     $("#" + answer).removeClass("btn-light");
     $("#" + answer).addClass("btn-success");
   }
-};
+}
 
 function showResult(response) {
   // Calculate score as a percentage

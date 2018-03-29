@@ -8,7 +8,6 @@ var previousTimestamp;
 var timeID;
 var numQuestions;
 var progress;
-var result;
 
 // Audio variables
 var sfxCountdown = new Audio('media/sfx-countdown.mp3');
@@ -108,7 +107,7 @@ function emptyCard() {
 function createHomepage() {
   // Cancel animation frame previously scheduled in populate()
   window.cancelAnimationFrame(timeID);
-  // Stop possible running soundtracks
+  // Stop and reset possible running soundtracks
   soundtrackMain.pause();
   soundtrackMain.currentTime = 0;
   soundtrackEnd.pause();
@@ -271,7 +270,7 @@ function validate() {
     $("#" + answer).removeClass("btn-light");
     $("#" + answer).addClass("btn-success");
   }
-};
+}
 
 function showResult(response) {
   // Calculate score as a percentage
