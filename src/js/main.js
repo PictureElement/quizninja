@@ -5,7 +5,9 @@ var maxPoints;
 var questionIndex;
 var secondsLeft;
 var previousTimestamp;
-var timeID;
+var requestID;
+var timeoutID1;
+var timeoutID2;
 var numQuestions;
 var progress;
 
@@ -18,6 +20,7 @@ var soundtrackMain = new Audio('media/soundtrack-main.mp3');
 var soundtrackEnd = new Audio('media/soundtrack-end.mp3');
 
 function countdown() {
+  console.log("in");
   // Get current timestamp
   var CurrentTimestamp = (new Date()).getTime();
 
@@ -36,7 +39,7 @@ function countdown() {
     submitCallback();
   }
   else {
-    timeID = requestAnimationFrame(countdown);
+    requestID = requestAnimationFrame(countdown);
   }
 }
 
@@ -44,7 +47,7 @@ function countdown() {
 function populate() {
 
   // Reset timer
-  secondsLeft = 15;
+  secondsLeft = 10;
 
   // Update timer 
   $("#countdown").empty();
@@ -105,8 +108,11 @@ function emptyCard() {
 }
 
 function createHomepage() {
+  // Cancel timeouts previously established in submitCallback()
+  window.clearTimeout(timeoutID1);
+  window.clearTimeout(timeoutID2);
   // Cancel animation frame previously scheduled in populate()
-  window.cancelAnimationFrame(timeID);
+  window.cancelAnimationFrame(requestID);
   // Stop and reset possible running soundtracks
   soundtrackMain.pause();
   soundtrackMain.currentTime = 0;
@@ -146,7 +152,6 @@ function init() {
   points = 0;
   maxPoints = 0;
   questionIndex = 0;
-  secondsLeft = 15;
   progress = 0;
       
   createPlayArea();
@@ -327,7 +332,7 @@ function gameover() {
 // Submit & Timeout callback
 function submitCallback() {
   // Cancel animation frame previously scheduled in populate()
-  window.cancelAnimationFrame(timeID);
+  window.cancelAnimationFrame(requestID);
 
   // Validate answer
   validate();
@@ -341,8 +346,8 @@ function submitCallback() {
 
   // Show next question
   if (questionIndex < numQuestions) {
-    setTimeout(emptyCard, 3000);
-    setTimeout(populate, 3000);
+    timeoutID1 = setTimeout(emptyCard, 3000);
+    timeoutID2 = setTimeout(populate, 3000);
   }
   // Game over
   else {
