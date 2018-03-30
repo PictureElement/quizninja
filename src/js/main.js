@@ -20,7 +20,6 @@ var soundtrackMain = new Audio('media/soundtrack-main.mp3');
 var soundtrackEnd = new Audio('media/soundtrack-end.mp3');
 
 function countdown() {
-  console.log("in");
   // Get current timestamp
   var CurrentTimestamp = (new Date()).getTime();
 
@@ -122,7 +121,7 @@ function createHomepage() {
   sfxCountdown.currentTime = 0;
 
   $(".container").empty();
-  $(".jumbotron").css("background", "#f2b632");
+  $(".jumbotron").css("background", "linear-gradient(to right, rgba(242,182,50,0.95), rgba(242,145,49,0.95))");
   $(".jumbotron").removeClass("text-white");
   $(".container").append(HTMLhomeHeader);
   $(".container").append(HTMLhomeFooter);
@@ -291,7 +290,7 @@ function showResult(response) {
   }
 
   // Update DOM
-  $(".container").css("background", "#f2b632");
+  $(".container").css("background", "linear-gradient(to right, rgba(242,182,50,0.95), rgba(242,145,49,0.95))");
   
   emptyCard();
   $("#card-header").remove();
