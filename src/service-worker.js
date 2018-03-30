@@ -25,8 +25,8 @@ limitations under the License.
   var filesToCache = [
     '/quizninja/',
     '/quizninja/index.html',
-    '/quizninja/offline.html',
-    '/quizninja/404.html',
+    '/quizninja/pages/offline.html',
+    '/quizninja/pages/404.html',
 
     '/quizninja/js/main.js',
     '/quizninja/js/helper.js',
@@ -83,7 +83,7 @@ limitations under the License.
           // TODO 2.2 - RESPOND WITH CUSTOM 404 PAGE
           if (response.status === 404) {
             console.log("Page not found");
-            return caches.match('404.html');
+            return caches.match('pages/404.html');
           }
           return caches.open(staticCacheName).then(function(cache) {
             if (event.request.url.indexOf('test') < 0) {
@@ -95,7 +95,7 @@ limitations under the License.
       }).catch(function(error) {
         // TODO 2.3 - RESPOND WITH CUSTOM OFFLINE PAGE
         console.log('Error, ', error);
-        return caches.match('offline.html');
+        return caches.match('pages/offline.html');
       })
     );
   });
