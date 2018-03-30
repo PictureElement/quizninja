@@ -91,3 +91,11 @@ footer a:hover {
   justify-content: space-between;
   align-items: center;
 }
+
+/*
+ * OFFLINE & 404 PAGES
+ */
+
+.title-offline, .title-404 {
+  font-family: 'Kaushan Script', cursive;
+}

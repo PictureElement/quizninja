@@ -37,6 +37,8 @@ limitations under the License.
     'https://fonts.googleapis.com/css?family=Josefin+Sans|Kaushan+Script',
     
     '/quizninja/media/logo.svg',
+    '/quizninja/media/offline.svg',
+    '/quizninja/media/error-404.svg',
     '/quizninja/media/sfx-countdown.mp3',
     '/quizninja/media/sfx-invalid-tone.mp3',
     '/quizninja/media/sfx-katana.mp3',
