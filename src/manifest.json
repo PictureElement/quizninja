@@ -8,7 +8,7 @@
     "type": "image/png"
   }],
   "start_url": "/quizninja/",
-  "display": "fullscreen",
+  "display": "standalone",
   "background_color": "#f2b632",
   "theme_color": "#f2b632"
 }
