@@ -5,7 +5,9 @@ var maxPoints;
 var questionIndex;
 var secondsLeft;
 var previousTimestamp;
-var timeID;
+var requestID;
+var timeoutID1;
+var timeoutID2;
 var numQuestions;
 var progress;
 
@@ -36,7 +38,7 @@ function countdown() {
     submitCallback();
   }
   else {
-    timeID = requestAnimationFrame(countdown);
+    requestID = requestAnimationFrame(countdown);
   }
 }
 
@@ -44,7 +46,7 @@ function countdown() {
 function populate() {
 
   // Reset timer
-  secondsLeft = 15;
+  secondsLeft = 10;
 
   // Update timer 
   $("#countdown").empty();
@@ -105,8 +107,11 @@ function emptyCard() {
 }
 
 function createHomepage() {
+  // Cancel timeouts previously established in submitCallback()
+  window.clearTimeout(timeoutID1);
+  window.clearTimeout(timeoutID2);
   // Cancel animation frame previously scheduled in populate()
-  window.cancelAnimationFrame(timeID);
+  window.cancelAnimationFrame(requestID);
   // Stop and reset possible running soundtracks
   soundtrackMain.pause();
   soundtrackMain.currentTime = 0;
@@ -116,7 +121,7 @@ function createHomepage() {
   sfxCountdown.currentTime = 0;
 
   $(".container").empty();
-  $(".jumbotron").css("background", "#f2b632");
+  $(".jumbotron").css("background", "linear-gradient(to right, rgba(242,182,50,0.95), rgba(242,145,49,0.95))");
   $(".jumbotron").removeClass("text-white");
   $(".container").append(HTMLhomeHeader);
   $(".container").append(HTMLhomeFooter);
@@ -146,7 +151,6 @@ function init() {
   points = 0;
   maxPoints = 0;
   questionIndex = 0;
-  secondsLeft = 15;
   progress = 0;
       
   createPlayArea();
@@ -286,7 +290,7 @@ function showResult(response) {
   }
 
   // Update DOM
-  $(".container").css("background", "#f2b632");
+  $(".container").css("background", "linear-gradient(to right, rgba(242,182,50,0.95), rgba(242,145,49,0.95))");
   
   emptyCard();
   $("#card-header").remove();
@@ -327,7 +331,7 @@ function gameover() {
 // Submit & Timeout callback
 function submitCallback() {
   // Cancel animation frame previously scheduled in populate()
-  window.cancelAnimationFrame(timeID);
+  window.cancelAnimationFrame(requestID);
 
   // Validate answer
   validate();
@@ -341,8 +345,8 @@ function submitCallback() {
 
   // Show next question
   if (questionIndex < numQuestions) {
-    setTimeout(emptyCard, 3000);
-    setTimeout(populate, 3000);
+    timeoutID1 = setTimeout(emptyCard, 3000);
+    timeoutID2 = setTimeout(populate, 3000);
   }
   // Game over
   else {

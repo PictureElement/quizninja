@@ -16,7 +16,8 @@ body {
   min-height: 100vh;
   padding: 1rem;
   margin: 0;
-  background: #f2b632;
+  /*background: #f2b632;*/
+  background: linear-gradient(to right, rgba(242,182,50,0.95), rgba(242,145,49,0.95));
   text-align: center;
   /* Horizontally and vertically center .container */
   display: flex;
@@ -89,4 +90,12 @@ footer a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+/*
+ * OFFLINE & 404 PAGES
+ */
+
+.title-offline, .title-404 {
+  font-family: 'Kaushan Script', cursive;
 }
