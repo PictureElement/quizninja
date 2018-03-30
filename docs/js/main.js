@@ -44,7 +44,6 @@ function countdown() {
 
 // Populate play area
 function populate() {
-
   // Reset timer
   secondsLeft = 10;
 
@@ -107,24 +106,26 @@ function emptyCard() {
 }
 
 function createHomepage() {
-  // Cancel timeouts previously established in submitCallback()
-  window.clearTimeout(timeoutID1);
-  window.clearTimeout(timeoutID2);
-  // Cancel animation frame previously scheduled in populate()
-  window.cancelAnimationFrame(requestID);
-  // Stop and reset possible running soundtracks
-  soundtrackMain.pause();
-  soundtrackMain.currentTime = 0;
-  soundtrackEnd.pause();
-  soundtrackEnd.currentTime = 0;
-  sfxCountdown.pause();
-  sfxCountdown.currentTime = 0;
+  if (window.confirm("Do you really want to leave?")) {
+    // Cancel timeouts previously established in submitCallback()
+    window.clearTimeout(timeoutID1);
+    window.clearTimeout(timeoutID2);
+    // Cancel animation frame previously scheduled in populate()
+    window.cancelAnimationFrame(requestID);
+    // Stop and reset possible running soundtracks
+    soundtrackMain.pause();
+    soundtrackMain.currentTime = 0;
+    soundtrackEnd.pause();
+    soundtrackEnd.currentTime = 0;
+    sfxCountdown.pause();
+    sfxCountdown.currentTime = 0;
 
-  $(".container").empty();
-  $(".jumbotron").css("background", "linear-gradient(to right, rgba(242,182,50,0.95), rgba(242,145,49,0.95))");
-  $(".jumbotron").removeClass("text-white");
-  $(".container").append(HTMLhomeHeader);
-  $(".container").append(HTMLhomeFooter);
+    $(".container").empty();
+    $(".jumbotron").css("background", "linear-gradient(to right, rgba(242,182,50,0.95), rgba(242,145,49,0.95))");
+    $(".jumbotron").removeClass("text-white");
+    $(".container").append(HTMLhomeHeader);
+    $(".container").append(HTMLhomeFooter);
+  }
 }
 
 function createPlayArea() {
@@ -146,7 +147,6 @@ function createPlayArea() {
 }
 
 function init() {
-  
   // Initialize variables
   points = 0;
   maxPoints = 0;
@@ -178,7 +178,6 @@ function arraysEqual(arr1, arr2) {
 
 // Validate answer
 function validate() {
-
   var type = quiz.questions[questionIndex].question_type;
   var questionPoints = quiz.questions[questionIndex].points;
   var answer = quiz.questions[questionIndex].correct_answer;
@@ -357,7 +356,7 @@ function submitCallback() {
 // Attach click event to the submit button (event delegation)
 $('.container').on("click", "#submit-btn", submitCallback);
 
-// Attach click event to the submit button (event delegation)
+// Attach click event to the home button (event delegation)
 $('.container').on("click", "#home-btn", createHomepage);
 
 // Attach click event to the play button (event delegation)
