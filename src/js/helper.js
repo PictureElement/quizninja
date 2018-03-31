@@ -8,13 +8,9 @@ var HTMLcardTitleWrapper = '<div id="card-title" class="bg-primary px-4 py-3 my-
 var HTMLanswersWrapper = '<div id="card-answers" class="btn-group-toggle" data-toggle="buttons"></div>';
 var HTMLcardButtons = '<div class="card-buttons"><div><button id="home-btn" type="button" class="btn btn-danger"><i class="fa fa-home" aria-hidden="true"></i> Home</button><button id="submit-btn" type="button" class="btn btn-success ml-2"><i class="fa fa-check" aria-hidden="true"></i> Submit</button></div><span id="points" class="points badge badge-info">0</span></div>';
 var HTMLcardProgressBar = '<div class="progress mt-2" style="height: 5px;"><div id="progress-bar" class="progress-bar bg-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div>';
-var HTMLimage = '<img class="img-fluid img-thumbnail" src="%data%" alt="placeholder">';
 var HTMLquestion = '<p class="p-0 m-0 text-center">%data%</p>';
-// Multiple choice (single)
 var HTMLradio = '<label id="option%data1%" class="mb-2 btn btn-block btn-light"><input type="radio" autocomplete="off" name="options"> %data2%</label>';
-// Multiple choice (multiple)
 var HTMLcheckbox = '<label id="option%data1%" class="mb-2 btn btn-block btn-light"><input type="checkbox" autocomplete="off" name="options"> %data2%</label>';
-// True-false
 var HTMLfalse = '<label id="false" class="mb-2 btn btn-block btn-light"><input type="radio" autocomplete="off" name="options"> False</label>';
 var HTMLtrue = '<label id="true" class="mb-2 btn btn-block btn-light"><input type="radio" autocomplete="off" name="options"> True</label>';
 

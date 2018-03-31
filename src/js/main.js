@@ -25,16 +25,16 @@ var soundtrackEnd = new Audio('media/soundtrack-end.mp3');
 
 function countdown() {
   // Get current timestamp
-  var CurrentTimestamp = (new Date()).getTime();
+  var currentTimestamp = (new Date()).getTime();
 
   // Update DOM, if the progress is greater or equal to 1 second
-  if (CurrentTimestamp - previousTimestamp >= 1000) {
+  if (currentTimestamp - previousTimestamp >= 1000) {
     secondsLeft--;
     // Play 3-second countdown sfx
     if (secondsLeft === 3) {
       sfxCountdown.play();
     }
-    previousTimestamp = CurrentTimestamp;
+    previousTimestamp = currentTimestamp;
     $("#countdown").empty();
     $("#countdown").append(secondsLeft+"&quot;");
   }
@@ -46,8 +46,8 @@ function countdown() {
   }
 }
 
-// Populate play area
-function populate() {
+// Show question
+function showQuestion() {
   // Reset timer
   secondsLeft = 10;
 
@@ -100,19 +100,20 @@ function populate() {
   countdown();
 }
 
-// Empty card area
-function emptyCard() {
+// Clear current question 
+function clearQuestion() {
   $("#card-image").empty();
   $("#card-title").empty();
   $("#card-answers").empty();
 }
 
+// Create home page
 function createHomepage() {
   if (window.confirm("Do you really want to leave?")) {
     // Cancel timeouts previously established in submitCallback()
     window.clearTimeout(timeoutID1);
     window.clearTimeout(timeoutID2);
-    // Cancel animation frame previously scheduled in populate()
+    // Cancel animation frame previously scheduled in showQuestion()
     window.cancelAnimationFrame(requestID);
     // Stop and reset possible running soundtracks
     soundtrackMain.pause();
@@ -130,7 +131,8 @@ function createHomepage() {
   }
 }
 
-function createPlayArea() {
+// Create play page
+function createPlayPage() {
   // Play sfx
   sfxKatana.play();
   // Play main soundtrack
@@ -147,8 +149,6 @@ function createPlayArea() {
   $(".container").append(HTMLcardButtons);
   $(".container").append(HTMLcardProgressBar);
 }
-
-// <img class="img-fluid img-thumbnail" src="%data%" alt="placeholder">
 
 function init() {
   // Initialize variables
@@ -173,9 +173,9 @@ function init() {
     }
 
     // Create play area
-    setTimeout(createPlayArea, 3000);
+    setTimeout(createPlayPage, 3000);
     // Populate play area (show first question)
-    setTimeout(populate, 3000);
+    setTimeout(showQuestion, 3000);
   });
 }
 
@@ -288,7 +288,7 @@ function validate() {
   }
 }
 
-function showResult(response) {
+function createGameOverPage(response) {
   // Stop main soundtrack
   soundtrackMain.pause();
   soundtrackMain.currentTime = 0;
@@ -298,7 +298,7 @@ function showResult(response) {
   // Update DOM
   $(".container").css("background", "linear-gradient(to right, rgba(242,182,50,0.95), rgba(242,145,49,0.95))");
   
-  emptyCard();
+  clearQuestion();
   $("#card-header").remove();
   $("#card-footer").remove();
 
@@ -320,7 +320,7 @@ function showResult(response) {
 
 // Submit & Timeout callback
 function submitCallback() {
-  // Cancel animation frame previously scheduled in populate()
+  // Cancel animation frame previously scheduled in showQuestion()
   window.cancelAnimationFrame(requestID);
 
   // Validate answer
@@ -335,8 +335,8 @@ function submitCallback() {
 
   // Show next question
   if (questionIndex < numQuestions) {
-    timeoutID1 = setTimeout(emptyCard, 3000);
-    timeoutID2 = setTimeout(populate, 3000);
+    timeoutID1 = setTimeout(clearQuestion, 3000);
+    timeoutID2 = setTimeout(showQuestion, 3000);
   }
   // Game over
   else {
@@ -359,7 +359,7 @@ function submitCallback() {
       resultImage = $('<img class="img-fluid img-thumbnail" alt="placeholder">');
       resultImage.attr('src', response.results[resultID].img);
       
-      setTimeout(showResult(response), 3000);
+      setTimeout(createGameOverPage(response), 3000);
     });
   }
 }
