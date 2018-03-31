@@ -19,7 +19,7 @@ var resultID;
 var sfxCountdown = new Audio('media/sfx-countdown.mp3');
 var sfxInvalid = new Audio('media/sfx-invalid-tone.mp3');
 var sfxValid = new Audio('media/sfx-valid-tone.mp3');
-var sfxKatana = new Audio('media/sfx-katana.mp3');
+var sfxPlay = new Audio('media/sfx-katana.mp3');
 var soundtrackMain = new Audio('media/soundtrack-main.mp3');
 var soundtrackEnd = new Audio('media/soundtrack-end.mp3');
 
@@ -46,7 +46,6 @@ function countdown() {
   }
 }
 
-// Show question
 function showQuestion() {
   // Reset timer
   secondsLeft = 10;
@@ -70,7 +69,6 @@ function showQuestion() {
   var formattedQuestion = HTMLquestion.replace("%data%", quiz.questions[questionIndex].title); 
   $("#card-title").append(formattedQuestion);
 
-  // Show possible answers
   if (questionType === "mutiplechoice-single") { // For multiple choice (single) use radio buttons
     var formattedRadio;
     // Show possible answers
@@ -90,6 +88,7 @@ function showQuestion() {
     }
   }
   else { // For true-false use radio buttons as well
+    // Show possible answers
     $("#card-answers").append(HTMLfalse);
     $("#card-answers").append(HTMLtrue);
   }
@@ -107,7 +106,6 @@ function clearQuestion() {
   $("#card-answers").empty();
 }
 
-// Create home page
 function createHomepage() {
   if (window.confirm("Do you really want to leave?")) {
     // Cancel timeouts previously established in submitCallback()
@@ -124,6 +122,7 @@ function createHomepage() {
     sfxCountdown.currentTime = 0;
 
     $(".container").empty();
+    $(".container").removeClass("border border-dark rounded p-4");
     $(".jumbotron").css("background", "linear-gradient(to right, rgba(242,182,50,0.95), rgba(242,145,49,0.95))");
     $(".jumbotron").removeClass("text-white");
     $(".container").append(HTMLhomeHeader);
@@ -131,10 +130,9 @@ function createHomepage() {
   }
 }
 
-// Create play page
 function createPlayPage() {
   // Play sfx
-  sfxKatana.play();
+  sfxPlay.play();
   // Play main soundtrack
   soundtrackMain.loop = true;
   soundtrackMain.play();
@@ -156,6 +154,7 @@ function init() {
   maxPoints = 0;
   questionIndex = 0;
   progress = 0;
+  score = 0;
   
   // Requests data from the server with an HTTP GET request
   $.getJSON("https://proto.io/en/jobs/candidate-questions/quiz.json", function(response) {
@@ -164,7 +163,7 @@ function init() {
     // Get number of questions
     numQuestions = quiz.questions.length;
 
-    // Load question images
+    // Load images
     var img;
     for (var i = 0; i < numQuestions; i++) {
       img = $('<img class="img-fluid img-thumbnail" alt="placeholder">');
@@ -196,6 +195,7 @@ function validate() {
   var answer = quiz.questions[questionIndex].correct_answer;
   maxPoints += questionPoints;
   
+  // Type: multiplechoice single
   if (type === "mutiplechoice-single") {
     if ( $("#option" + answer).hasClass("active") ) {
       sfxValid.play();
@@ -211,8 +211,8 @@ function validate() {
     $("#option" + answer).removeClass("btn-light");
     $("#option" + answer).addClass("btn-success");
   }
+  // Type: multiplechoice multiple
   else if (type === "mutiplechoice-multiple") {
-    
     var ids = [];
     var answerBitVector = [];
     var choiceBitVector = [];
@@ -251,7 +251,6 @@ function validate() {
         choiceBitVector.push(0);
       }
     }
-
     // Validate 
     var isCorrect;
     if (arraysEqual(answerBitVector, choiceBitVector)) {
@@ -264,7 +263,8 @@ function validate() {
       isCorrect = false;
     }
   }
-  else { // True-false 
+  // Type: true-false
+  else {
     var choice;
     if ( $("#true").hasClass("active") ) {
       choice = true;
@@ -296,26 +296,30 @@ function createGameOverPage(response) {
   soundtrackEnd.play();
 
   // Update DOM
-  $(".container").css("background", "linear-gradient(to right, rgba(242,182,50,0.95), rgba(242,145,49,0.95))");
-  
-  clearQuestion();
-  $("#card-header").remove();
-  $("#card-footer").remove();
-
-  // Show image
-  $("#card-image").append(resultImage); // Append image
+  $(".jumbotron").css("background", "linear-gradient(to right, rgba(242,182,50,0.95), rgba(242,145,49,0.95))");
+  $(".jumbotron").removeClass("text-white");
+  $(".container").empty();
+  $(".container").addClass("border border-dark rounded p-4");
+  $(".container").append("<header></header>");
+  $(".container").append("<footer></footer>");
 
   // Show score
-  var formattedScore = HTMLscore.replace(/%data%/g, score);
-  $("#card-title").append(formattedScore);
+  var formattedScore = HTMLscore.replace(/%data%/g, score.toFixed(2));
+  $("header").append(formattedScore);
+
+  // Show image
+  $("header").append(resultImage);
 
   // Show title
   var formattedTitle = HTMLtitle.replace("%data%", response.results[resultID].title); 
-  $("#card-title").append(formattedTitle);
+  $("header").append(formattedTitle);
 
   // Show message
   var formattedMessage = HTMLmessage.replace("%data%", response.results[resultID].message); 
-  $("#card-title").append(formattedMessage);
+  $("header").append(formattedMessage);
+
+  // Show RTH button
+  $("footer").append(HTMLrthButton);
 }
 
 // Submit & Timeout callback
@@ -355,11 +359,13 @@ function submitCallback() {
         }
       }
 
-      // Set result image
-      resultImage = $('<img class="img-fluid img-thumbnail" alt="placeholder">');
+      // Set appropriate image
+      resultImage = $('<img class="img-fluid rounded" alt="placeholder">');
       resultImage.attr('src', response.results[resultID].img);
       
-      setTimeout(createGameOverPage(response), 3000);
+      setTimeout(function() {
+        createGameOverPage(response);
+      }, 3000);
     });
   }
 }
