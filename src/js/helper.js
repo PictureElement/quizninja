@@ -15,11 +15,11 @@ var HTMLfalse = '<label id="false" class="mb-2 btn btn-block btn-light"><input t
 var HTMLtrue = '<label id="true" class="mb-2 btn btn-block btn-light"><input type="radio" autocomplete="off" name="options"> True</label>';
 
 // GAMEOVER PAGE
-var HTMLscore = '<div class="progress mb-3"><div class="progress-bar bg-dark" role="progressbar" style="width: %data%%;" aria-valuenow="%data%" aria-valuemin="0" aria-valuemax="100">%data%%</div></div>';
-var HTMLtitle = '<h1 class="gameover-title mt-2">%data%</h1>';
-var HTMLmessage = '<p>%data%</p>';
-var HTMLrthButton = '<button id="home-btn" type="button" class="btn btn-dark"><i class="fa fa-home" aria-hidden="true"></i> Home</button>';
+var HTMLgameOverScore = '<div class="progress mb-3"><div class="progress-bar bg-dark" role="progressbar" style="width: %data%%;" aria-valuenow="%data%" aria-valuemin="0" aria-valuemax="100">%data%%</div></div>';
+var HTMLgameOverTitle = '<h1 class="gameover-title mt-2">%data%</h1>';
+var HTMLgameOverMessage = '<p>%data%</p>';
+var HTMLgameOverRthButton = '<button id="home-btn" type="button" class="btn btn-dark"><i class="fa fa-home" aria-hidden="true"></i> Home</button>';
 
 // HOME PAGE
-var HTMLhomeHeader = '<header id="home-header"><img src="media/logo.svg" width="100" alt="app logo"><h1 class="display-4 app-title">QuizNinja</h1><p>Test your knowledge on various topics in this traditional style trivia game. Challenge friends and family to fun questions. Find out if you got the skills to be a quizninja!</p><a href="https://github.com/PictureElement" class="badge badge-dark px-3 py-2"><i class="fa fa-github" aria-hidden="true"></i> Follow @PictureElement</a><a href="https://github.com/PictureElement/quizninja" class="badge badge-dark px-3 py-2 ml-2"><i class="fa fa-star" aria-hidden="true"></i> Star</a><hr class="my-4 mx-3"><button aria-label="play" id="play-btn" type="button" class="play-btn btn btn-dark mb-4 mx-auto"><i class="fa fa-play" aria-hidden="true"></i></button></header>';
-var HTMLhomeFooter = '<footer id="home-footer"><a href="https://pictureelement.github.io/portfolio-2/"><i class="fa fa-code" style="font-size:20px;font-weight:bold;" aria-hidden="true"></i> with <i class="fa fa-heart" style="font-size:16px;font-weight:bold;" aria-hidden="true"></i> by <span style="font-weight:bold;">PictureElement</span></a></footer>';
+var HTMLhomeHeader = '<header><img src="media/logo.svg" width="100" alt="app logo"><h1 class="display-4 app-title">QuizNinja</h1><p>Test your knowledge on various topics in this traditional style trivia game. Challenge friends and family to fun questions. Find out if you got the skills to be a quizninja!</p><a href="https://github.com/PictureElement" class="badge badge-dark px-3 py-2"><i class="fa fa-github" aria-hidden="true"></i> Follow @PictureElement</a><a href="https://github.com/PictureElement/quizninja" class="badge badge-dark px-3 py-2 ml-2"><i class="fa fa-star" aria-hidden="true"></i> Star</a><hr class="my-4 mx-3"><button aria-label="play" id="play-btn" type="button" class="play-btn btn btn-dark mb-4 mx-auto"><i class="fa fa-play" aria-hidden="true"></i></button></header>';
+var HTMLhomeFooter = '<footer><a href="https://pictureelement.github.io/portfolio-2/"><i class="fa fa-code" style="font-size:20px;font-weight:bold;" aria-hidden="true"></i> with <i class="fa fa-heart" style="font-size:16px;font-weight:bold;" aria-hidden="true"></i> by <span style="font-weight:bold;">PictureElement</span></a></footer>';

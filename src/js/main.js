@@ -1,4 +1,5 @@
 // Global variables
+var quizUrl = "https://proto.io/en/jobs/candidate-questions/quiz.json";
 var quiz;
 var points;
 var maxPoints;
@@ -148,7 +149,7 @@ function createPlayPage() {
   $(".container").append(HTMLcardProgressBar);
 }
 
-function init() {
+function init(quizUrl) {
   // Initialize variables
   points = 0;
   maxPoints = 0;
@@ -157,7 +158,7 @@ function init() {
   score = 0;
   
   // Requests data from the server with an HTTP GET request
-  $.getJSON("https://proto.io/en/jobs/candidate-questions/quiz.json", function(response) {
+  $.getJSON(quizUrl, function(response) {
     // Get response
     quiz = response;
     // Get number of questions
@@ -304,22 +305,22 @@ function createGameOverPage(response) {
   $(".container").append("<footer></footer>");
 
   // Show score
-  var formattedScore = HTMLscore.replace(/%data%/g, score.toFixed(2));
-  $("header").append(formattedScore);
+  var formattedGameOverScore = HTMLgameOverScore.replace(/%data%/g, score.toFixed(2));
+  $("header").append(formattedGameOverScore);
 
   // Show image
   $("header").append(resultImage);
 
   // Show title
-  var formattedTitle = HTMLtitle.replace("%data%", response.results[resultID].title); 
-  $("header").append(formattedTitle);
+  var formattedGameOverTitle = HTMLgameOverTitle.replace("%data%", response.results[resultID].title); 
+  $("header").append(formattedGameOverTitle);
 
   // Show message
-  var formattedMessage = HTMLmessage.replace("%data%", response.results[resultID].message); 
-  $("header").append(formattedMessage);
+  var formattedGameOverMessage = HTMLgameOverMessage.replace("%data%", response.results[resultID].message); 
+  $("header").append(formattedGameOverMessage);
 
   // Show RTH button
-  $("footer").append(HTMLrthButton);
+  $("footer").append(HTMLgameOverRthButton);
 }
 
 // Submit & Timeout callback
@@ -377,4 +378,6 @@ $('.container').on("click", "#submit-btn", submitCallback);
 $('.container').on("click", "#home-btn", createHomepage);
 
 // Attach click event to the play button (event delegation)
-$(".container").on("click", "#play-btn", init);
+$(".container").on("click", "#play-btn", function() {
+  init(quizUrl);
+});
