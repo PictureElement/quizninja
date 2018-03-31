@@ -10,6 +10,10 @@ var timeoutID1;
 var timeoutID2;
 var numQuestions;
 var progress;
+var questionImages = [];
+var resultImage;
+var score;
+var resultID;
 
 // Audio variables
 var sfxCountdown = new Audio('media/sfx-countdown.mp3');
@@ -59,10 +63,8 @@ function populate() {
   // Get question type
   var questionType = quiz.questions[questionIndex].question_type;
 
-  // Show image  
-  var formattedImage = HTMLimage.replace("%data%", quiz.questions[questionIndex].img); // Replace the %data% placeholder text
-  formattedImage = formattedImage.replace("http", "https"); // Serve content over HTTPS.
-  $("#card-image").append(formattedImage); // Append image
+  // Show image
+  $("#card-image").append(questionImages[questionIndex]); // Append image
 
   // Show question
   var formattedQuestion = HTMLquestion.replace("%data%", quiz.questions[questionIndex].title); 
@@ -146,23 +148,34 @@ function createPlayArea() {
   $(".container").append(HTMLcardProgressBar);
 }
 
+// <img class="img-fluid img-thumbnail" src="%data%" alt="placeholder">
+
 function init() {
   // Initialize variables
   points = 0;
   maxPoints = 0;
   questionIndex = 0;
   progress = 0;
-      
-  createPlayArea();
-
+  
   // Requests data from the server with an HTTP GET request
   $.getJSON("https://proto.io/en/jobs/candidate-questions/quiz.json", function(response) {
     // Get response
     quiz = response;
     // Get number of questions
     numQuestions = quiz.questions.length;
+
+    // Load question images
+    var img;
+    for (var i = 0; i < numQuestions; i++) {
+      img = $('<img class="img-fluid img-thumbnail" alt="placeholder">');
+      img.attr('src', quiz.questions[i].img);
+      questionImages.push(img);
+    }
+
+    // Create play area
+    setTimeout(createPlayArea, 3000);
     // Populate play area (show first question)
-    populate();
+    setTimeout(populate, 3000);
   });
 }
 
@@ -276,17 +289,11 @@ function validate() {
 }
 
 function showResult(response) {
-  // Calculate score as a percentage
-  var score = (points / maxPoints) * 100;
-
-  // Choose appropriate message
-  var resultID;
-  for (var  i = 0; i < response.results.length; i++) {
-    if ( score >= response.results[i].minpoints && score <= response.results[i].maxpoints ) {
-      resultID = i;
-      break;
-    }
-  }
+  // Stop main soundtrack
+  soundtrackMain.pause();
+  soundtrackMain.currentTime = 0;
+  // Play gameover soundtrack
+  soundtrackEnd.play();
 
   // Update DOM
   $(".container").css("background", "linear-gradient(to right, rgba(242,182,50,0.95), rgba(242,145,49,0.95))");
@@ -295,13 +302,10 @@ function showResult(response) {
   $("#card-header").remove();
   $("#card-footer").remove();
 
-  // Show image  
-  var formattedImage = HTMLimage.replace("%data%", response.results[resultID].img); // Replace the %data% placeholder text
-  formattedImage = formattedImage.replace("http", "https"); // Serve content over HTTPS.
-  $("#card-image").append(formattedImage); // Append image
+  // Show image
+  $("#card-image").append(resultImage); // Append image
 
   // Show score
-  console.log(score);
   var formattedScore = HTMLscore.replace(/%data%/g, score);
   $("#card-title").append(formattedScore);
 
@@ -312,19 +316,6 @@ function showResult(response) {
   // Show message
   var formattedMessage = HTMLmessage.replace("%data%", response.results[resultID].message); 
   $("#card-title").append(formattedMessage);
-}
-
-function gameover() {
-  // Stop main soundtrack
-  soundtrackMain.pause();
-  soundtrackMain.currentTime = 0;
-  // Play gameover soundtrack
-  soundtrackEnd.play();
-
-  // Requests data from the server with an HTTP GET request
-  $.getJSON("https://proto.io/en/jobs/candidate-questions/result.json", function(response) {
-    showResult(response);
-  });
 }
 
 // Submit & Timeout callback
@@ -349,7 +340,27 @@ function submitCallback() {
   }
   // Game over
   else {
-    gameover();
+    // Requests data from the server with an HTTP GET request
+    $.getJSON("https://proto.io/en/jobs/candidate-questions/result.json", function(response) {
+      
+      // Calculate score as a percentage
+      score = (points / maxPoints) * 100;
+
+      // Choose appropriate result message
+      resultID;
+      for (var  i = 0; i < response.results.length; i++) {
+        if ( score >= response.results[i].minpoints && score <= response.results[i].maxpoints ) {
+          resultID = i;
+          break;
+        }
+      }
+
+      // Set result image
+      resultImage = $('<img class="img-fluid img-thumbnail" alt="placeholder">');
+      resultImage.attr('src', response.results[resultID].img);
+      
+      setTimeout(showResult(response), 3000);
+    });
   }
 }
 
