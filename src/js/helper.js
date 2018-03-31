@@ -19,7 +19,7 @@ var HTMLgameOverProgressBar = '<div class="progress mb-3"><div class="progress-b
 var HTMLgameOverTitle = '<h1 class="gameover-title mt-2">%data%</h1>';
 var HTMLgameOverMessage = '<p>%data%</p>';
 var HTMLgameOverRthButton = '<button id="home-btn" type="button" class="btn btn-dark"><i class="fa fa-home" aria-hidden="true"></i> Home</button>';
-var HTMLgameOverImage = '<img class="img-fluid rounded" src="%data%" alt="placeholder">';
+var HTMLgameOverImage = '<img class="img-fluid rounded" alt="placeholder">';
 
 // HOME PAGE
 var HTMLhomeHeader = '<header><img src="media/logo.svg" width="100" alt="app logo"><h1 class="display-4 app-title">QuizNinja</h1><p>Test your knowledge on various topics in this traditional style trivia game. Challenge friends and family to fun questions. Find out if you got the skills to be a quizninja!</p><a href="https://github.com/PictureElement" class="badge badge-dark px-3 py-2"><i class="fa fa-github" aria-hidden="true"></i> Follow @PictureElement</a><a href="https://github.com/PictureElement/quizninja" class="badge badge-dark px-3 py-2 ml-2"><i class="fa fa-star" aria-hidden="true"></i> Star</a><hr class="my-4 mx-3"><button aria-label="play" id="play-btn" type="button" class="play-btn btn btn-dark mb-4 mx-auto"><i class="fa fa-play" aria-hidden="true"></i></button></header>';

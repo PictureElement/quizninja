@@ -359,11 +359,12 @@ function submitCallback() {
         }
       }
 
-      // Set appropriate image
-      var formattedGameOverImage= HTMLgameOverImage.replace("%data%", response.results[resultID].img);
+      // Load appropriate game over image
+      var gameOverImage = $(HTMLgameOverImage);
+      gameOverImage.attr('src', response.results[resultID].img);
       
       setTimeout(function() {
-        createGameOverPage(response, formattedGameOverImage);
+        createGameOverPage(response, gameOverImage);
       }, 3000);
     });
   }
