@@ -12,7 +12,6 @@ var timeoutID2;
 var numQuestions;
 var progress;
 var questionImages = [];
-var resultImage;
 var score;
 var resultID;
 
@@ -57,41 +56,41 @@ function showQuestion() {
   
   // Update progress bar 
   progress = (questionIndex / numQuestions) * 100;
-  $("#progress-bar").css("width", progress + "%");
-  $("#progress-bar").attr("aria-valuenow", progress);
+  $("#play-progress-bar").css("width", progress + "%");
+  $("#play-progress-bar").attr("aria-valuenow", progress);
 
   // Get question type
   var questionType = quiz.questions[questionIndex].question_type;
 
   // Show image
-  $("#card-image").append(questionImages[questionIndex]); // Append image
+  $("#play-image").append(questionImages[questionIndex]); // Append image
 
   // Show question
-  var formattedQuestion = HTMLquestion.replace("%data%", quiz.questions[questionIndex].title); 
-  $("#card-title").append(formattedQuestion);
+  var formattedPlayQuestion = HTMLplayQuestion.replace("%data%", quiz.questions[questionIndex].title); 
+  $("#play-title").append(formattedPlayQuestion);
 
   if (questionType === "mutiplechoice-single") { // For multiple choice (single) use radio buttons
-    var formattedRadio;
+    var formattedPlayRadio;
     // Show possible answers
     for (var i = 0; i < quiz.questions[questionIndex].possible_answers.length; i++) {
-      formattedRadio = HTMLradio.replace("%data1%", quiz.questions[questionIndex].possible_answers[i].a_id);
-      formattedRadio = formattedRadio.replace("%data2%", quiz.questions[questionIndex].possible_answers[i].caption);
-      $("#card-answers").append(formattedRadio);
+      formattedPlayRadio = HTMLplayRadio.replace("%data1%", quiz.questions[questionIndex].possible_answers[i].a_id);
+      formattedPlayRadio = formattedPlayRadio.replace("%data2%", quiz.questions[questionIndex].possible_answers[i].caption);
+      $("#play-answers").append(formattedPlayRadio);
     }
   }
   else if (questionType === "mutiplechoice-multiple") { // For multiple choice (multiple) use checkbox buttons
-    var formattedCheckbox;
+    var formattedPlayCheckbox;
     // Show possible answers
     for (var i = 0; i < quiz.questions[questionIndex].possible_answers.length; i++) {
-      formattedCheckbox = HTMLcheckbox.replace("%data1%", quiz.questions[questionIndex].possible_answers[i].a_id);
-      formattedCheckbox = formattedCheckbox.replace("%data2%", quiz.questions[questionIndex].possible_answers[i].caption);
-      $("#card-answers").append(formattedCheckbox);
+      formattedPlayCheckbox = HTMLplayCheckbox.replace("%data1%", quiz.questions[questionIndex].possible_answers[i].a_id);
+      formattedPlayCheckbox = formattedPlayCheckbox.replace("%data2%", quiz.questions[questionIndex].possible_answers[i].caption);
+      $("#play-answers").append(formattedPlayCheckbox);
     }
   }
   else { // For true-false use radio buttons as well
     // Show possible answers
-    $("#card-answers").append(HTMLfalse);
-    $("#card-answers").append(HTMLtrue);
+    $("#play-answers").append(HTMLplayRadioFalse);
+    $("#play-answers").append(HTMLplayRadioTrue);
   }
 
   // Get timestamp
@@ -102,13 +101,13 @@ function showQuestion() {
 
 // Clear current question 
 function clearQuestion() {
-  $("#card-image").empty();
-  $("#card-title").empty();
-  $("#card-answers").empty();
+  $("#play-image").empty();
+  $("#play-title").empty();
+  $("#play-answers").empty();
 }
 
 function createHomepage() {
-  if (window.confirm("Do you really want to leave?")) {
+  if (window.confirm("Return to homepage?")) {
     // Cancel timeouts previously established in submitCallback()
     window.clearTimeout(timeoutID1);
     window.clearTimeout(timeoutID2);
@@ -141,12 +140,12 @@ function createPlayPage() {
   $(".container").empty();
   $(".jumbotron").css("background", "#343a40");
   $(".jumbotron").addClass("text-white");
-  $(".container").append(HTMLcardHeader);
-  $(".container").append(HTMLcardImageWrapper);
-  $(".container").append(HTMLcardTitleWrapper);
-  $(".container").append(HTMLanswersWrapper);
-  $(".container").append(HTMLcardButtons);
-  $(".container").append(HTMLcardProgressBar);
+  $(".container").append(HTMLplayHeader);
+  $(".container").append(HTMLplayImageWrapper);
+  $(".container").append(HTMLplayTitleWrapper);
+  $(".container").append(HTMLplayAnswersWrapper);
+  $(".container").append(HTMLplayButtons);
+  $(".container").append(HTMLplayProgressBar);
 }
 
 function init(quizUrl) {
@@ -289,7 +288,7 @@ function validate() {
   }
 }
 
-function createGameOverPage(response) {
+function createGameOverPage(response, gameOverImage) {
   // Stop main soundtrack
   soundtrackMain.pause();
   soundtrackMain.currentTime = 0;
@@ -305,11 +304,11 @@ function createGameOverPage(response) {
   $(".container").append("<footer></footer>");
 
   // Show score
-  var formattedGameOverScore = HTMLgameOverScore.replace(/%data%/g, score.toFixed(2));
-  $("header").append(formattedGameOverScore);
+  var formattedGameOverProgressBar = HTMLgameOverProgressBar.replace(/%data%/g, score.toFixed(2));
+  $("header").append(formattedGameOverProgressBar);
 
   // Show image
-  $("header").append(resultImage);
+  $("header").append(gameOverImage);
 
   // Show title
   var formattedGameOverTitle = HTMLgameOverTitle.replace("%data%", response.results[resultID].title); 
@@ -361,11 +360,10 @@ function submitCallback() {
       }
 
       // Set appropriate image
-      resultImage = $('<img class="img-fluid rounded" alt="placeholder">');
-      resultImage.attr('src', response.results[resultID].img);
+      var formattedGameOverImage= HTMLgameOverImage.replace("%data%", response.results[resultID].img);
       
       setTimeout(function() {
-        createGameOverPage(response);
+        createGameOverPage(response, formattedGameOverImage);
       }, 3000);
     });
   }
