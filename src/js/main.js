@@ -334,8 +334,9 @@ function createGameOverPage(response, gameOverImage) {
 
 // Submit & Timeout callback
 function submitCallback() {
-  // Cancel animation frame previously scheduled in showQuestion()
+  // Stop timer and countdown sfx
   window.cancelAnimationFrame(requestID);
+  sfxCountdown.pause();
 
   // Validate answer
   validate();
@@ -370,7 +371,8 @@ function submitCallback() {
 
       // Load appropriate game over image
       var gameOverImage = $(HTMLgameOverImage);
-      gameOverImage.attr('src', response.results[resultID].img);
+      var imgUrl = response.results[resultID].img.replace("http", "https");
+      gameOverImage.attr('src', imgUrl);
       
       timeoutID3 = setTimeout(function() {
         createGameOverPage(response, gameOverImage);
