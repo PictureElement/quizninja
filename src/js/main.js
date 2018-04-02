@@ -23,7 +23,6 @@ var sfxValid = new Audio('media/sfx-valid-tone.mp3');
 var sfxPlay = new Audio('media/sfx-katana.mp3');
 var soundtrackMain = new Audio('media/soundtrack-main.mp3');
 soundtrackMain.loop = true;
-soundtrackMain.volume = 0.5;
 var soundtrackEnd = new Audio('media/soundtrack-end.mp3');
 
 function countdown() {
@@ -362,7 +361,6 @@ function submitCallback() {
       score = (points / maxPoints) * 100;
 
       // Choose appropriate result message
-      resultID;
       for (var  i = 0; i < response.results.length; i++) {
         if ( score >= response.results[i].minpoints && score <= response.results[i].maxpoints ) {
           resultID = i;
