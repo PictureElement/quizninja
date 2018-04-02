@@ -9,6 +9,7 @@ var previousTimestamp;
 var requestID;
 var timeoutID1;
 var timeoutID2;
+var timeoutID3;
 var numQuestions;
 var progress;
 var questionImages = [];
@@ -21,6 +22,7 @@ var sfxInvalid = new Audio('media/sfx-invalid-tone.mp3');
 var sfxValid = new Audio('media/sfx-valid-tone.mp3');
 var sfxPlay = new Audio('media/sfx-katana.mp3');
 var soundtrackMain = new Audio('media/soundtrack-main.mp3');
+soundtrackMain.loop = true;
 var soundtrackEnd = new Audio('media/soundtrack-end.mp3');
 
 function countdown() {
@@ -111,6 +113,7 @@ function createHomepage() {
     // Cancel timeouts previously established in submitCallback()
     window.clearTimeout(timeoutID1);
     window.clearTimeout(timeoutID2);
+    window.clearTimeout(timeoutID3);
     // Cancel animation frame previously scheduled in showQuestion()
     window.cancelAnimationFrame(requestID);
     // Stop and reset possible running soundtracks
@@ -134,7 +137,6 @@ function createPlayPage() {
   // Play sfx
   sfxPlay.play();
   // Play main soundtrack
-  soundtrackMain.loop = true;
   soundtrackMain.play();
 
   $(".container").empty();
@@ -164,13 +166,21 @@ function init(quizUrl) {
     numQuestions = quiz.questions.length;
 
     // Load images
-    var img;
+    var img, imgUrl;
     for (var i = 0; i < numQuestions; i++) {
       img = $('<img class="img-fluid img-thumbnail" alt="placeholder">');
-      img.attr('src', quiz.questions[i].img);
+      // Serve over https (GitHub pages)
+      imgUrl = quiz.questions[i].img.replace("http", "https");
+      img.attr('src', imgUrl);
       questionImages.push(img);
     }
 
+    /* 
+      The following execution order is supposed to be guaranteed. Under section
+      6.3 (Timers), the setTimeout() method must wait until any invocations of 
+      this algorithm started before this one whose timeout is equal to or less 
+      than this one's have completed.
+    */
     // Create play area
     setTimeout(createPlayPage, 3000);
     // Populate play area (show first question)
@@ -351,7 +361,6 @@ function submitCallback() {
       score = (points / maxPoints) * 100;
 
       // Choose appropriate result message
-      resultID;
       for (var  i = 0; i < response.results.length; i++) {
         if ( score >= response.results[i].minpoints && score <= response.results[i].maxpoints ) {
           resultID = i;
@@ -363,7 +372,7 @@ function submitCallback() {
       var gameOverImage = $(HTMLgameOverImage);
       gameOverImage.attr('src', response.results[resultID].img);
       
-      setTimeout(function() {
+      timeoutID3 = setTimeout(function() {
         createGameOverPage(response, gameOverImage);
       }, 3000);
     });
